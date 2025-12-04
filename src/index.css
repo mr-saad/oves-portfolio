@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-Medium.ttf");
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-Regular.ttf");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-Light.ttf");
+  font-display: swap;
+  font-weight: 300;
+}
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-ExtraLight.ttf");
+  font-display: swap;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: Outfit;
+  src: url("/fonts/Outfit-Thin.ttf");
+  font-display: swap;
+  font-weight: 100;
+}
+
+* {
+  font-family: Outfit, sans-serif;
+}
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  @apply bg-black text-[#5E5E5E];
+}
+.highlight {
+  @apply text-[#d5d5d5];
+}
+
+.btn {
+  @apply transition outline-2 outline-[#06923E] hover:bg-black hover:text-[#06923E] focus-visible:bg-black focus-visible:text-[#06923E] text-[15px] px-5 py-3.5 cursor-pointer inline-flex items-center gap-3 bg-[#06923E] text-[#d5d5d5] rounded-full;
+}
