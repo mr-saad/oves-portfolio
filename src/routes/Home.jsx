@@ -9,7 +9,7 @@ export default function Home() {
       animate="animate"
       exit="exit"
     >
-      <h1 className="md:text-4xl text-[1.8rem] font-thin mt-10">
+      <h1 className="md:text-4xl text-[1.8rem] font-extralight mt-10">
         Hey!
         <br /> I’m <span className="highlight font-light">Ovesarora</span>
         Exploring <br /> & Learning
@@ -23,7 +23,7 @@ export default function Home() {
         detail, and a strong desire to craft meaningful products that truly
         improve the user’s journey
       </p>
-      <button className="btn group">
+      <a download href="/OvesAroraResume.pdf" className="btn group">
         Download Resume
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ group-focus-visible:translate-x-2 p-0.5"
           <path d="M5 12h14" />
           <path d="m12 5 7 7-7 7" />
         </svg>
-      </button>
+      </a>
     </motion.div>
   )
 }

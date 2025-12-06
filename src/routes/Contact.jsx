@@ -1,6 +1,24 @@
 import { motion } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
+import { useForm, ValidationError } from "@formspree/react"
+
 export default function Contact() {
+  const [state, sendFn] = useForm("xwpgqjoj")
+
+  const submitFn = async (e) => {
+    e.preventDefault()
+    try {
+      sendFn(e)
+      if (state.succeeded) {
+        e.target.reset()
+        alert("Your message is sent, I'll reply as soon as i can")
+      }
+    } catch (error) {
+      alert(error.message)
+      console.error(error)
+    }
+  }
+
   return (
     <motion.div
       variants={pageAnimation}
@@ -10,26 +28,34 @@ export default function Contact() {
     >
       <h1 className="highlight text-3xl font-medium mb-10">Contact</h1>
       <h2 className="highlight text-2xl mb-10 text-center">Get in Touch</h2>
-      <form className="grid gap-5 max-w-md mx-auto">
+      <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
         <input
-          name="name"
+          name="Name"
           placeholder="Name"
           className="px-4 py-2 rounded-full border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] text-[#d5d5d5]"
           type="text"
+          required
+          minLength={3}
+          maxLength={20}
         />
         <input
-          name="email"
+          name="Email"
           placeholder="E-Mail"
           className="px-4 py-2 rounded-full border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] text-[#d5d5d5]"
-          type="text"
+          type="email"
+          required
         />
         <textarea
           className="px-4 py-2 rounded-xl border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] max-h-40 min-h-4 text-[#d5d5d5]"
-          name="message"
+          name="Message"
           id="message"
+          required
           placeholder="Type Something"
         ></textarea>
-        <button className="btn group justify-self-start">
+        <button
+          disabled={state.submitting}
+          className="btn group justify-self-start disabled:opacity-50"
+        >
           Send Message
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +74,11 @@ group-focus-visible:translate-x-2 p-0.5"
             <path d="m12 5 7 7-7 7" />
           </svg>
         </button>
+        <ValidationError
+          className="text-red-600"
+          errors={state.errors}
+          prefix="Error: "
+        />
       </form>
     </motion.div>
   )
