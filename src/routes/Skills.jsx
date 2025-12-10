@@ -4,6 +4,7 @@ import pageAnimation from "../lib/pageAnimation"
 export default function Skills() {
   return (
     <motion.div
+      transition={{ duration: 0.5 }}
       variants={pageAnimation}
       initial="initial"
       animate="animate"

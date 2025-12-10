@@ -4,6 +4,7 @@ import pageAnimation from "../lib/pageAnimation"
 export default function Home() {
   return (
     <motion.div
+      transition={{ duration: 0.5 }}
       variants={pageAnimation}
       initial="initial"
       animate="animate"
@@ -31,7 +32,7 @@ export default function Home() {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#06923E"
+          stroke="#550000"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

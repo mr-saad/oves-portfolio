@@ -21,6 +21,7 @@ export default function Contact() {
 
   return (
     <motion.div
+      transition={{ duration: 0.5 }}
       variants={pageAnimation}
       initial="initial"
       animate="animate"
@@ -32,7 +33,7 @@ export default function Contact() {
         <input
           name="Name"
           placeholder="Name"
-          className="px-4 py-2 rounded-full border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] text-[#d5d5d5]"
+          className="input"
           type="text"
           required
           minLength={3}
@@ -41,12 +42,13 @@ export default function Contact() {
         <input
           name="Email"
           placeholder="E-Mail"
-          className="px-4 py-2 rounded-full border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] text-[#d5d5d5]"
+          className="input"
           type="email"
           required
         />
         <textarea
-          className="px-4 py-2 rounded-xl border outline-[#06923E] focus-visible:outline-none focus-visible:border-[#06923E] transition border-[#d5d5d5] max-h-40 min-h-4 text-[#d5d5d5]"
+          rows={5}
+          className="input rounded-3xl!"
           name="Message"
           id="message"
           required
@@ -63,7 +65,7 @@ export default function Contact() {
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#06923E"
+            stroke="#550000"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

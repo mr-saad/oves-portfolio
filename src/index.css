@@ -41,6 +41,9 @@ html {
   scrollbar-gutter: stable;
 }
 
+.input {
+  @apply px-4 py-3.5 rounded-full border outline-none focus-visible:border-[#d5d5d5] transition border-[#5e5e5e] text-[#d5d5d5];
+}
 body {
   @apply bg-black text-[#5E5E5E];
 }
@@ -49,5 +52,5 @@ body {
 }
 
 .btn {
-  @apply transition outline-2 outline-[#06923E] hover:bg-black hover:text-[#06923E] focus-visible:bg-black focus-visible:text-[#06923E] text-[15px] px-5 py-3.5 cursor-pointer inline-flex items-center gap-3 bg-[#06923E] text-[#d5d5d5] rounded-full;
+  @apply transition outline-2 outline-[#550000] hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-[#550000] text-[15px] px-5 py-3.5 cursor-pointer inline-flex items-center gap-3 bg-[#550000] text-[#d5d5d5] rounded-full;
 }

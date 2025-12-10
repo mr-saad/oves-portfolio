@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Link, useLocation } from "react-router"
 import { AnimatePresence, motion } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
+import { links } from "../lib/links"
 
 export default function Navbar() {
   const { pathname } = useLocation()
@@ -27,17 +28,17 @@ export default function Navbar() {
           className="grid z-3 justify-items-end gap-2 cursor-pointer scale-70 md:scale-100"
         >
           <span
-            className={`bg-white transition origin-top-right w-8 h-[3px] rounded-full ${
+            className={`bg-white duration-500 transition origin-top-right w-8 h-[3px] rounded-full ${
               showUl && "-rotate-45 w-8!"
             }`}
           ></span>
           <span
-            className={`bg-white transition-[width] w-10 h-[3px] rounded-full ${
+            className={`bg-white duration-500 transition-[width] w-10 h-[3px] rounded-full ${
               showUl && "w-0!"
             }`}
           ></span>
           <span
-            className={`bg-white transition origin-bottom-right w-6 h-[3px] rounded-full ${
+            className={`bg-white duration-500 transition origin-bottom-right w-6 h-[3px] rounded-full ${
               showUl && "rotate-45 w-8!"
             }`}
           ></span>
@@ -46,29 +47,41 @@ export default function Navbar() {
           {showUl && (
             <motion.ul
               key={"uniq"}
+              transition={{ duration: 0.3 }}
               variants={pageAnimation}
               initial="initial"
               animate="animate"
               exit="exit"
               className="z-2 grid content-center text-center text-3xl text-[#777] justify-center gap-5 fixed top-0 left-0 w-full h-full bg-black"
             >
-              <li>
-                <Link
-                  onClick={closeUl}
-                  to={"/"}
-                  className={`transition hover:text-[#06923E] ${
-                    pathname === "/" ? "text-[#06923E]" : ""
-                  }`}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
+              {links.map((link, index) => {
+                return (
+                  <motion.li
+                    transition={{
+                      ease: "linear",
+                      delay: index * 0.5,
+                    }}
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                  >
+                    <Link
+                      onClick={closeUl}
+                      to={link.route}
+                      className={`transition hover:text-[#550000] ${
+                        pathname === link.route ? "text-[#550000]" : ""
+                      }`}
+                    >
+                      {link.title}
+                    </Link>
+                  </motion.li>
+                )
+              })}
+              {/* <li>
                 <Link
                   onClick={closeUl}
                   to={"/projects"}
-                  className={`transition hover:text-[#06923E] ${
-                    pathname === "/projects" ? "text-[#06923E]" : ""
+                  className={`transition hover:text-[#550000] ${
+                    pathname === "/projects" ? "text-[#550000]" : ""
                   }`}
                 >
                   Projects
@@ -78,8 +91,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/skills"}
-                  className={`transition hover:text-[#06923E] ${
-                    pathname === "/skills" ? "text-[#06923E]" : ""
+                  className={`transition hover:text-[#550000] ${
+                    pathname === "/skills" ? "text-[#550000]" : ""
                   }`}
                 >
                   Skills
@@ -89,13 +102,13 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/contact"}
-                  className={`transition hover:text-[#06923E] ${
-                    pathname === "/contact" ? "text-[#06923E]" : ""
+                  className={`transition hover:text-[#550000] ${
+                    pathname === "/contact" ? "text-[#550000]" : ""
                   }`}
                 >
                   Contact
                 </Link>
-              </li>
+              </li> */}
             </motion.ul>
           )}
         </AnimatePresence>

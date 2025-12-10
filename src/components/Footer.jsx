@@ -1,11 +1,15 @@
+import { Link, useLocation } from "react-router"
+import { links } from "../lib/links"
+
 export default function Footer() {
+  const { pathname } = useLocation()
   return (
     <footer className="p-7 border-t border-white/5 mt-20">
-      <div className="max-w-sm mx-auto flex items-center justify-between rounded-full pl-5 p-3 bg-[#0a0a0a]">
+      <div className="max-w-sm mx-auto flex items-center justify-between rounded-full pl-5 p-3.5 bg-[#0a0a0a] focus-within:outline  focus-within:outline-[#d5d5d5]">
         <input
           type="email"
           placeholder="E-Mail"
-          className="outline-none min-w-0 text-[#d5d5d5]"
+          className="outline-none min-w-0 text-[#d5d5d5] w-full"
         />
         <button className="cursor-pointer group">
           <svg
@@ -18,13 +22,29 @@ export default function Footer() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="rounded-full bg-[#06923E] p-1 scale-120 outline-1 outline-[#06923E] transition hover:bg-transparent hover:stroke-[#06923E] group-focus:bg-transparent group-focus:stroke-[#06923E]"
+            className="rounded-full bg-[#550000] p-1 scale-120 outline-1 outline-[#550000] transition hover:bg-transparent hover:stroke-[#550000] group-focus:bg-transparent group-focus:stroke-[#550000]"
           >
             <path d="M5 12h14" />
             <path d="m12 5 7 7-7 7" />
           </svg>
         </button>
       </div>
+      <ul className="grid gap-2 mt-5 md:text-center">
+        {links.map((link) => {
+          return (
+            <li>
+              <Link
+                to={link.route}
+                className={`transition hover:text-[#550000] highlight text-xl ${
+                  pathname === link.route ? "text-[#550000]!" : ""
+                }`}
+              >
+                {link.title}
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
       <div className="md:text-center">
         <p className="mt-5">
           <a
@@ -44,7 +64,16 @@ export default function Footer() {
             Github
           </a>
         </p>
-        <p className="highlight mt-5">Bhuj - Kachchh, Gujarat - India</p>
+        <p>
+          <a
+            className="transition hover:text-[#d5d5d5]"
+            target="_blank"
+            href="https://instagram.com/youngoves"
+          >
+            Instagram
+          </a>
+        </p>
+        <p className="mt-5">Bhuj - India</p>
         <p>
           <a
             className="transition hover:text-[#d5d5d5]"
