@@ -9,6 +9,7 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
+      className="mt-30"
     >
       <h1 className="md:text-4xl text-[1.8rem] font-extralight mt-10">
         Hey!
@@ -32,7 +33,7 @@ export default function Home() {
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#550000"
+          stroke="#780606"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -67,8 +67,8 @@ export default function Navbar() {
                     <Link
                       onClick={closeUl}
                       to={link.route}
-                      className={`transition hover:text-[#550000] ${
-                        pathname === link.route ? "text-[#550000]" : ""
+                      className={`transition hover:text-[#780606] ${
+                        pathname === link.route ? "text-[#780606]" : ""
                       }`}
                     >
                       {link.title}
@@ -80,8 +80,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/projects"}
-                  className={`transition hover:text-[#550000] ${
-                    pathname === "/projects" ? "text-[#550000]" : ""
+                  className={`transition hover:text-[#780606] ${
+                    pathname === "/projects" ? "text-[#780606]" : ""
                   }`}
                 >
                   Projects
@@ -91,8 +91,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/skills"}
-                  className={`transition hover:text-[#550000] ${
-                    pathname === "/skills" ? "text-[#550000]" : ""
+                  className={`transition hover:text-[#780606] ${
+                    pathname === "/skills" ? "text-[#780606]" : ""
                   }`}
                 >
                   Skills
@@ -102,8 +102,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/contact"}
-                  className={`transition hover:text-[#550000] ${
-                    pathname === "/contact" ? "text-[#550000]" : ""
+                  className={`transition hover:text-[#780606] ${
+                    pathname === "/contact" ? "text-[#780606]" : ""
                   }`}
                 >
                   Contact

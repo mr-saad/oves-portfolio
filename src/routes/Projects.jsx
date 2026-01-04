@@ -21,7 +21,8 @@ export default function Projects() {
           onSwiper={(e) => {
             swiper.current = e
           }}
-          className="bg-[#0a0a0a] rounded-xl w-full"
+          // bg-[#0a0a0a]
+          className=" rounded-xl w-full"
         >
           {projects.map(({ img, title, desc, url }) => {
             return (
@@ -46,7 +47,7 @@ export default function Projects() {
                       height="20"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#550000"
+                      stroke="#780606"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"

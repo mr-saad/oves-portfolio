@@ -65,7 +65,7 @@ export default function Contact() {
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#550000"
+            stroke="#780606"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

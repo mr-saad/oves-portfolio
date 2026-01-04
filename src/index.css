@@ -51,6 +51,9 @@ body {
   @apply text-[#d5d5d5];
 }
 
+.skillLabels p {
+  @apply px-6 py-2 border rounded-full w-max mb-2 text-[#E1E1E1];
+}
 .btn {
-  @apply transition outline-2 outline-[#550000] hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-[#550000] text-[15px] px-5 py-3.5 cursor-pointer inline-flex items-center gap-3 bg-[#550000] text-[#d5d5d5] rounded-full;
+  @apply transition outline-2 outline-[#780606] hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-[#780606] text-[15px] px-5 py-3.5 cursor-pointer inline-flex items-center gap-3 bg-[#780606] text-[#d5d5d5] rounded-full;
 }
