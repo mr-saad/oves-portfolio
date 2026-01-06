@@ -19,7 +19,7 @@ function App() {
     <>
       <AnimatePresence>{loading && <Initial />}</AnimatePresence>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-7 py-3 min-h-[80dvh]">
+      <main className="max-w-6xl mx-auto px-7 py-3 min-h-[80vh]">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" index element={<Home />} />
