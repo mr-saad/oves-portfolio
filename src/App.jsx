@@ -13,7 +13,7 @@ function App() {
   const location = useLocation()
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3000)
+    setTimeout(() => setLoading(false), 3500)
   }, [])
   return (
     <>
@@ -46,7 +46,8 @@ function Initial() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-4xl md:text-5xl text-white"
+        className="text-4xl md:text-5xl text-white after:left-0 after:overflow-clip after:transition-all after:duration-3000 after:ease-in-out after:animate-[fillText_3s_500ms_ease-in-out_forwards] relative after:absolute after:w-0 after:text-[#780606] after:content-[attr(data-text)] "
+        data-text="ovesarora"
       >
         <span>oves</span>arora
       </motion.p>

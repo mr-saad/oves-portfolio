@@ -3,7 +3,7 @@ import pageAnimation from "../lib/pageAnimation"
 import { useForm, ValidationError } from "@formspree/react"
 
 export default function Contact() {
-  const [state, sendFn] = useForm("xwpgqjoj")
+  const [state, sendFn] = useForm(import.meta.env.VITE_FORMSPREE_KEY)
 
   const submitFn = async (e) => {
     e.preventDefault()
@@ -27,7 +27,7 @@ export default function Contact() {
       animate="animate"
       exit="exit"
     >
-      <h1 className="highlight text-3xl font-medium mb-10">Contact</h1>
+      {/* <h1 className="highlight text-3xl font-medium mb-10">Contact</h1> */}
       <h2 className="highlight text-2xl mb-10 text-center">Get in Touch</h2>
       <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
         <input
@@ -48,7 +48,7 @@ export default function Contact() {
         />
         <textarea
           rows={5}
-          className="input rounded-3xl!"
+          className="input rounded-2xl!"
           name="Message"
           id="message"
           required

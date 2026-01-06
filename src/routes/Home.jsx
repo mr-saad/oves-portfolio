@@ -9,9 +9,9 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-30"
+      className="mt-10 md:mt-30"
     >
-      <h1 className="md:text-4xl text-[1.8rem] font-extralight mt-10">
+      <h1 className="md:text-4xl text-[1.8rem] font-extralight">
         Hey!
         <br /> I’m <span className="highlight font-light">Ovesarora</span>
         Exploring <br /> & Learning
