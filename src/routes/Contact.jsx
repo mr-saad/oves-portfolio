@@ -27,8 +27,7 @@ export default function Contact() {
       animate="animate"
       exit="exit"
     >
-      {/* <h1 className="highlight text-3xl font-medium mb-10">Contact</h1> */}
-      <h2 className="highlight text-2xl mb-10 text-center">Get in Touch</h2>
+      <h2 className="highlight text-3xl mb-10 text-center">Get in Touch</h2>
       <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
         <input
           name="Name"
