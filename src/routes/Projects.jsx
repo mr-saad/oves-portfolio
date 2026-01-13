@@ -22,13 +22,15 @@ export default function Projects() {
             swiper.current = e
           }}
           // bg-[#0a0a0a]
-          className=" rounded-xl w-full"
+          className="rounded-xl w-full"
         >
           {projects.map(({ img, title, desc, url }) => {
             return (
               <SwiperSlide className="p-5 flex! justify-center cursor-grab active:cursor-grabbing">
                 <div>
                   <img
+                    width={400}
+                    height={400}
                     src={`/images/${img}`}
                     className="rounded-xl"
                     alt={title}
@@ -39,7 +41,7 @@ export default function Projects() {
                   <p className="mb-4 mt-1 font-thin highlight leading-tight">
                     {desc}
                   </p>
-                  <a href={url} className="btn group">
+                  <a href={url} target="_blank" className="btn group">
                     Checkout!
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

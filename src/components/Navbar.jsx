@@ -16,9 +16,7 @@ export default function Navbar() {
     <div className="border-b border-white/5">
       <nav className="flex justify-between items-center p-7 max-w-6xl mx-auto tracking-tight">
         <h1 onClick={closeUl} className="highlight text-3xl md:text-4xl z-3">
-          <Link to={"/"}>
-            <span className="text-[#780606]">oves</span>arora
-          </Link>
+          <Link to={"/"}>ovesarora</Link>
         </h1>
         <button
           onClick={() => {

@@ -7,9 +7,7 @@ export default function Footer() {
   return (
     <footer className="p-7 border-t border-white/5 mt-20">
       <div className="max-w-6xl mx-auto px-0 md:px-5">
-        <h1 className="highlight text-3xl md:text-4xl z-3 mb-5">
-          <span className="text-[#780606]">oves</span>arora
-        </h1>
+        <h1 className="highlight text-3xl md:text-4xl z-3 mb-5">ovesarora</h1>
         <div className="max-w-sm flex items-center justify-between rounded-full pl-5 p-3.5 bg-[#0a0a0a] focus-within:outline  focus-within:outline-[#d5d5d5]">
           <input
             type="email"
@@ -41,7 +39,7 @@ export default function Footer() {
                 <li key={link.route}>
                   <Link
                     to={link.route}
-                    className={`transition hover:text-[#780606] highlight ${
+                    className={`transition hover:text-[#780606]! highlight text-xl ${
                       pathname === link.route ? "text-[#780606]!" : ""
                     }`}
                   >
@@ -58,7 +56,8 @@ export default function Footer() {
                 target="_blank"
                 href="https://www.linkedin.com/in/oves-arora-4a95a52a6"
               >
-                <Linkedin className="inline-block mr-1" /> Linkedin
+                <Linkedin strokeWidth={1} className="inline-block mr-1" />{" "}
+                Linkedin
               </a>
             </p>
             <p className="mb-2">
@@ -67,7 +66,7 @@ export default function Footer() {
                 target="_blank"
                 href="https://github.com/oves-arora"
               >
-                <Github className="inline-block mr-1" /> Github
+                <Github strokeWidth={1} className="inline-block mr-1" /> Github
               </a>
             </p>
             <p className="mb-2">
@@ -76,20 +75,23 @@ export default function Footer() {
                 target="_blank"
                 href="https://instagram.com/youngoves"
               >
-                <Instagram className="inline-block mr-1" /> Instagram
+                <Instagram strokeWidth={1} className="inline-block mr-1" />{" "}
+                Instagram
               </a>
             </p>
           </div>
           <div className="md:justify-self-end-safe">
             <p className="mb-2">
-              <MapPin className="inline-block mr-1" /> Bhuj - India
+              <MapPin strokeWidth={1} className="inline-block mr-1" /> Bhuj -
+              India
             </p>
             <p className="mb-2">
               <a
                 className="transition hover:text-[#d5d5d5]"
                 href="tel:919979672226"
               >
-                <Phone className="inline-block mr-1" /> +91 99796 72226
+                <Phone strokeWidth={1} className="inline-block mr-1" /> +91
+                99796 72226
               </a>
             </p>
           </div>
