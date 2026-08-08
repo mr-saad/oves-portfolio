@@ -25,7 +25,7 @@ export default function Home() {
         detail, and a strong desire to craft meaningful products that truly
         improve the user’s journey
       </p>
-      <a download href="/OvesAroraResume.pdf" className="btn group">
+      <a download href="/OvesAroraResume.docx" className="btn group">
         Download Resume
         <svg
           xmlns="http://www.w3.org/2000/svg"
