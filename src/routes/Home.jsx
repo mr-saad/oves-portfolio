@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 
@@ -33,11 +33,7 @@ function getWordOpacity(progress, { start, end }, startOpacity = START_OPACITY) 
  * Starts with no text filled (opacity 0.15). As user scrolls,
  * words progressively illuminate to full white opacity 1.0.
  */
-function ScrollWordReveal({ text, className }) {
-  const { scrollY } = useScroll()
-
-  // Map window scroll: 0px (top: 0% filled) to 200px (100% filled)
-  const progress = useTransform(scrollY, [0, 200], [0, 1])
+function ScrollWordReveal({ text, className, progress }) {
   const words = text.split(" ")
 
   return (
@@ -128,9 +124,28 @@ const tokens = [
  * Landing page with natural typewriter heading, bio summary, and resume download.
  */
 export default function Home() {
+  const containerRef = useRef(null)
   const [hasStarted, setHasStarted] = useState(false)
   const [index, setIndex] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
+
+  // Track scroll travel through the pinned storytelling container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 100px", "end end"],
+  })
+
+  // Word reveal: Progresses smoothly from 0 to 1 over the first 75% of pinned scroll travel
+  const wordProgress = useTransform(scrollYProgress, [0, 0.75], [0, 1])
+
+  // Resume button: Hidden by default (opacity 0, pointer-events none).
+  // Smoothly reveals once the scroll word reveal animation completes (75% to 88% scroll).
+  const buttonOpacity = useTransform(scrollYProgress, [0.75, 0.88], [0, 1])
+  const buttonY = useTransform(scrollYProgress, [0.75, 0.88], [16, 0])
+  const buttonScale = useTransform(scrollYProgress, [0.75, 0.88], [0.94, 1])
+  const buttonPointerEvents = useTransform(scrollYProgress, (v) =>
+    v >= 0.78 ? "auto" : "none"
+  )
 
   // Delay typewriter initiation until splash screen completes (if present)
   useEffect(() => {
@@ -186,62 +201,78 @@ export default function Home() {
       exit="exit"
       className="mt-4 sm:mt-6 md:mt-10"
     >
-      {/* Typewriter Heading with Animated Blinking Caret */}
-      <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
-        {tokens.slice(0, index).map((token, i) => {
-          if (token.isLineBreak) {
-            return <br key={i} />
-          }
-          return (
-            <span
-              key={i}
-              className={token.highlight ? "highlight" : ""}
-            >
-              {token.char}
-            </span>
-          )
-        })}
-        {showCursor && (
-          <motion.span
-            aria-hidden="true"
-            animate={{ opacity: [1, 0, 1] }}
-            transition={{
-              repeat: Infinity,
-              duration: 0.8,
-              ease: "easeInOut",
+      {/* Pinned Scroll Track: Screen stays pinned in this section while scroll drives the word reveal */}
+      <div ref={containerRef} className="relative min-h-[175vh]">
+        <div className="sticky top-6 sm:top-10 md:top-12">
+          {/* Typewriter Heading with Animated Blinking Caret */}
+          <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
+            {tokens.slice(0, index).map((token, i) => {
+              if (token.isLineBreak) {
+                return <br key={i} />
+              }
+              return (
+                <span
+                  key={i}
+                  className={token.highlight ? "highlight" : ""}
+                >
+                  {token.char}
+                </span>
+              )
+            })}
+            {showCursor && (
+              <motion.span
+                aria-hidden="true"
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 0.8,
+                  ease: "easeInOut",
+                }}
+                className="inline-block text-[#A65F1B] font-light ml-0.5"
+              >
+                |
+              </motion.span>
+            )}
+          </h1>
+
+          {/* Bio Summary with Scroll Word Reveal driven by pinned scroll progress */}
+          <ScrollWordReveal
+            text={BIO_TEXT}
+            progress={wordProgress}
+            className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed max-w-2xl"
+          />
+
+          {/* Resume Download CTA (Hidden by default, smoothly appears when word reveal completes) */}
+          <motion.div
+            style={{
+              opacity: buttonOpacity,
+              y: buttonY,
+              scale: buttonScale,
+              pointerEvents: buttonPointerEvents,
             }}
-            className="inline-block text-[#A65F1B] font-light ml-0.5"
+            className="w-fit"
           >
-            |
-          </motion.span>
-        )}
-      </h1>
-
-      {/* Bio Summary with Scroll Word Reveal */}
-      <ScrollWordReveal
-        text={BIO_TEXT}
-        className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed max-w-2xl"
-      />
-
-      {/* Resume Download CTA */}
-      <a download href="/OvesAroraResume.docx" className="btn group">
-        <span className="relative z-10">Download Resume</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
-        >
-          <path d="M5 12h14" />
-          <path d="m12 5 7 7-7 7" />
-        </svg>
-      </a>
+            <a download href="/OvesAroraResume.docx" className="btn group">
+              <span className="relative z-10">Download Resume</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </motion.div>
+        </div>
+      </div>
     </motion.div>
   )
 }
