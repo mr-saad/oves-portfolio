@@ -132,7 +132,7 @@ export default function Home() {
   // Track scroll travel through the pinned storytelling container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 100px", "end end"],
+    offset: ["start 109px", "end end"],
   })
 
   // Word reveal: Progresses slowly and smoothly from 0 to 1 over the scroll track
@@ -199,11 +199,11 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-4 sm:mt-6 md:mt-10"
+      className="mt-0"
     >
       {/* Pinned Scroll Track: Screen stays pinned in this section while scroll drives the word reveal */}
       <div ref={containerRef} className="relative min-h-[275vh]">
-        <div className="sticky top-[96px] sm:top-[104px] md:top-[116px]">
+        <div className="sticky top-[109px] md:top-[129px]">
           {/* Typewriter Heading with Animated Blinking Caret */}
           <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
             {tokens.slice(0, index).map((token, i) => {
