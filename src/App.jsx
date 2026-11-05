@@ -73,7 +73,7 @@ function Initial() {
   return (
     <motion.div
       exit={{ opacity: 0 }}
-      className="inset-0 z-4 fixed bg-black flex items-center justify-center"
+      className="inset-0 z-[100] fixed bg-black flex items-center justify-center"
     >
       <motion.p
         initial={{ opacity: 0 }}
