@@ -136,42 +136,122 @@ export default function Home() {
     mass: 0.2,
   })
 
-  // Prevent home page window scroll; gestures drive animations only
+  // Two-phase scroll behavior:
+  // Phase 1: Scroll gestures animate the word reveal and reveal the button without scrolling the page.
+  // Phase 2: Once the button appears, scrolling continues down the page to the footer.
   useEffect(() => {
-    const originalOverflow = document.documentElement.style.overflow
-    document.documentElement.style.overflow = "hidden"
     window.scrollTo({ top: 0, behavior: "instant" })
 
     const handleWheel = (e) => {
-      e.preventDefault()
-      // Deliberate, relaxed fill speed per wheel notch
-      const delta = e.deltaY * 0.0009
-      rawProgress.set(Math.max(0, Math.min(1, rawProgress.get() + delta)))
+      const current = rawProgress.get()
+      const smooth = smoothProgress.get()
+
+      if (e.deltaY > 0) {
+        // Scrolling down: intercept until word reveal is complete and button has appeared
+        if (current < 1 || smooth < 0.96) {
+          e.preventDefault()
+          const delta = e.deltaY * 0.001
+          rawProgress.set(Math.min(1, current + delta))
+        }
+        // Once button has appeared, do NOT preventDefault: browser window scrolls down naturally
+      } else if (e.deltaY < 0) {
+        // Scrolling up: if at the top of the page, reverse reveal animation
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0
+        if (scrollY <= 2 && current > 0) {
+          e.preventDefault()
+          const delta = e.deltaY * 0.001
+          rawProgress.set(Math.max(0, current + delta))
+        }
+        // If scrolled down the page, let native scroll bring the viewport back to top
+      }
     }
 
     let startY = 0
+    let isTrackingTouch = false
+
     const handleTouchStart = (e) => {
-      startY = e.touches[0].clientY
+      if (e.touches.length === 1) {
+        startY = e.touches[0].clientY
+        isTrackingTouch = true
+      }
     }
+
     const handleTouchMove = (e) => {
+      if (!isTrackingTouch || e.touches.length !== 1) return
       const currentY = e.touches[0].clientY
       const deltaY = startY - currentY
-      startY = currentY
-      const delta = deltaY * 0.0025
-      rawProgress.set(Math.max(0, Math.min(1, rawProgress.get() + delta)))
+      const current = rawProgress.get()
+      const smooth = smoothProgress.get()
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0
+
+      if (deltaY > 0) {
+        // Swiping up (scrolling down)
+        if (current < 1 || smooth < 0.96) {
+          if (e.cancelable) e.preventDefault()
+          startY = currentY
+          const delta = deltaY * 0.003
+          rawProgress.set(Math.min(1, current + delta))
+        } else {
+          startY = currentY
+        }
+      } else if (deltaY < 0) {
+        // Swiping down (scrolling up)
+        if (scrollY <= 2 && current > 0) {
+          if (e.cancelable) e.preventDefault()
+          startY = currentY
+          const delta = deltaY * 0.003
+          rawProgress.set(Math.max(0, current + delta))
+        } else {
+          startY = currentY
+        }
+      }
+    }
+
+    const handleTouchEnd = () => {
+      isTrackingTouch = false
+    }
+
+    const handleKeyDown = (e) => {
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return
+
+      const isDown =
+        ["ArrowDown", "PageDown", " "].includes(e.key) &&
+        !(e.key === " " && e.shiftKey)
+      const isUp =
+        ["ArrowUp", "PageUp"].includes(e.key) || (e.key === " " && e.shiftKey)
+      const current = rawProgress.get()
+      const smooth = smoothProgress.get()
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0
+
+      if (isDown) {
+        if (current < 1 || smooth < 0.96) {
+          e.preventDefault()
+          const step = e.key === "ArrowDown" ? 0.12 : 0.25
+          rawProgress.set(Math.min(1, current + step))
+        }
+      } else if (isUp) {
+        if (scrollY <= 2 && current > 0) {
+          e.preventDefault()
+          const step = e.key === "ArrowUp" ? 0.12 : 0.25
+          rawProgress.set(Math.max(0, current - step))
+        }
+      }
     }
 
     window.addEventListener("wheel", handleWheel, { passive: false })
     window.addEventListener("touchstart", handleTouchStart, { passive: true })
-    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+    window.addEventListener("touchmove", handleTouchMove, { passive: false })
+    window.addEventListener("touchend", handleTouchEnd, { passive: true })
+    window.addEventListener("keydown", handleKeyDown)
 
     return () => {
-      document.documentElement.style.overflow = originalOverflow || "visible"
       window.removeEventListener("wheel", handleWheel)
       window.removeEventListener("touchstart", handleTouchStart)
       window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchend", handleTouchEnd)
+      window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [rawProgress])
+  }, [rawProgress, smoothProgress])
 
   // Word reveal: Progresses slowly and smoothly from 0 to 1 over the gesture track
   const wordProgress = useTransform(smoothProgress, [0, 0.85], [0, 1])
@@ -239,7 +319,7 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-2 sm:mt-4 md:mt-6"
+      className="mt-0 sm:mt-2 md:mt-3"
     >
       {/* Typewriter Heading with Animated Blinking Caret */}
       <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">

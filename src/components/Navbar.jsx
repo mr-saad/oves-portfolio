@@ -76,7 +76,7 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="z-20 grid content-center text-center text-xl sm:text-2xl font-medium sm:font-semibold text-[#777] justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
+              className="z-20 grid content-center text-center text-xl sm:text-2xl font-bold text-[#777] justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
             >
               {links.map((link, index) => (
                 <motion.li
