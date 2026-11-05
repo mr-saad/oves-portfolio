@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 
 /**
@@ -167,12 +167,12 @@ export default function Home() {
     return () => clearTimeout(timeout)
   }, [hasStarted, index])
 
-  // Hide and stop the blinking cursor once typing completes
+  // Hide and remove the blinking cursor once typing completes
   useEffect(() => {
     if (index >= tokens.length) {
       const hideTimer = setTimeout(() => {
         setShowCursor(false)
-      }, 500)
+      }, 400)
       return () => clearTimeout(hideTimer)
     }
   }, [index])
@@ -201,24 +201,20 @@ export default function Home() {
             </span>
           )
         })}
-        <AnimatePresence>
-          {showCursor && (
-            <motion.span
-              key="cursor"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: [1, 0, 1] }}
-              exit={{ opacity: 0 }}
-              transition={{
-                repeat: Infinity,
-                duration: 0.8,
-                ease: "easeInOut",
-              }}
-              className="inline-block text-[#A65F1B] font-light ml-0.5"
-            >
-              |
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {showCursor && (
+          <motion.span
+            aria-hidden="true"
+            animate={{ opacity: [1, 0, 1] }}
+            transition={{
+              repeat: Infinity,
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            className="inline-block text-[#A65F1B] font-light ml-0.5"
+          >
+            |
+          </motion.span>
+        )}
       </h1>
 
       {/* Bio Summary with Scroll Word Reveal */}
