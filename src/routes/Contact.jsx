@@ -32,6 +32,7 @@ export default function Contact() {
       initial="initial"
       animate="animate"
       exit="exit"
+      className="mt-6 sm:mt-10 md:mt-14"
     >
       <h1 className="highlight text-3xl font-medium mb-8 text-center">
         Contact
