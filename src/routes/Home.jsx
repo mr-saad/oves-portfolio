@@ -319,7 +319,7 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-4 sm:mt-6 md:mt-8 lg:mt-10"
+      className="mt-8 sm:mt-10 md:mt-0"
     >
       {/* Typewriter Heading with Animated Blinking Caret */}
       <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
