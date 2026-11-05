@@ -1,13 +1,20 @@
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
-import { useEffect, useState } from "react"
 
+/**
+ * Character tokens defining the natural typewriter sequence.
+ * Includes characters, highlighted name letters, and line break markers.
+ */
 const tokens = [
+  // Line 1: Greeting
   { char: "H" },
   { char: "e" },
   { char: "y" },
   { char: "!" },
   { isLineBreak: true },
+
+  // Line 2: Name with white highlight + exploring
   { char: "I" },
   { char: "’" },
   { char: "m" },
@@ -32,6 +39,8 @@ const tokens = [
   { char: "n" },
   { char: "g" },
   { isLineBreak: true },
+
+  // Line 3: Learning
   { char: "&" },
   { char: " " },
   { char: "L" },
@@ -44,10 +53,15 @@ const tokens = [
   { char: "g" },
 ]
 
+/**
+ * Home Component
+ * Landing page with natural typewriter heading, bio summary, and resume download.
+ */
 export default function Home() {
   const [hasStarted, setHasStarted] = useState(false)
   const [index, setIndex] = useState(0)
 
+  // Delay typewriter initiation until splash screen completes (if present)
   useEffect(() => {
     const isSplashPresent = !!document.querySelector(".fill-text-anim")
     const startDelay = isSplashPresent ? 3600 : 350
@@ -59,12 +73,13 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Natural typing cadence loop with variable delays and punctuation pauses
   useEffect(() => {
     if (!hasStarted) return
     if (index >= tokens.length) return
 
     const currentToken = tokens[index]
-    let delay = Math.floor(Math.random() * 30) + 40 // 40-70ms realistic typing cadence
+    let delay = Math.floor(Math.random() * 30) + 40 // Realistic 40-70ms human typing variance
 
     if (currentToken.isLineBreak) {
       delay = 260 // Pause at line break
@@ -90,6 +105,7 @@ export default function Home() {
       exit="exit"
       className="mt-4 sm:mt-6 md:mt-10"
     >
+      {/* Typewriter Heading with Animated Blinking Caret */}
       <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
         {tokens.slice(0, index).map((token, i) => {
           if (token.isLineBreak) {
@@ -116,6 +132,8 @@ export default function Home() {
           |
         </motion.span>
       </h1>
+
+      {/* Bio Summary */}
       <p className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed text-[#888] sm:text-[#5E5E5E] max-w-2xl">
         I am a passionate UI/UX design aspirant focused on creating clean,
         minimal, intuitive and user-centered digital experiences. I enjoy
@@ -125,6 +143,8 @@ export default function Home() {
         detail and a strong desire to craft meaningful products that truly
         improve the user’s journey.
       </p>
+
+      {/* Resume Download CTA */}
       <a download href="/OvesAroraResume.docx" className="btn group">
         <span className="relative z-10">Download Resume</span>
         <svg

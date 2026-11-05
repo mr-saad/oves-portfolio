@@ -1,3 +1,7 @@
+/**
+ * Portfolio Projects Data
+ * Displayed in the interactive Projects carousel.
+ */
 export default [
   {
     img: "aroramudart.png",

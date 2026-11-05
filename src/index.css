@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Typography: Outfit Font Family (Weights: 100 - 700)
+   ========================================================================== */
 @font-face {
   font-family: Outfit;
   src: url("/fonts/Outfit-Bold.ttf");
@@ -34,6 +37,7 @@
   font-display: swap;
   font-weight: 300;
 }
+
 @font-face {
   font-family: Outfit;
   src: url("/fonts/Outfit-ExtraLight.ttf");
@@ -48,6 +52,9 @@
   font-weight: 100;
 }
 
+/* ==========================================================================
+   Global Base & Scrollbar Reset
+   ========================================================================== */
 * {
   font-family: Outfit, sans-serif;
   scrollbar-width: none;
@@ -60,6 +67,18 @@
   height: 0;
 }
 
+body {
+  @apply bg-black text-[#5E5E5E];
+}
+
+/* Highlighted Text Color */
+.highlight {
+  @apply text-[#d5d5d5];
+}
+
+/* ==========================================================================
+   Form Input Styles
+   ========================================================================== */
 .input {
   width: 100%;
   padding: 0.875rem 1.25rem;
@@ -82,16 +101,17 @@
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 16px rgba(255, 255, 255, 0.05);
   background-color: rgba(255, 255, 255, 0.02);
 }
-body {
-  @apply bg-black text-[#5E5E5E];
-}
-.highlight {
-  @apply text-[#d5d5d5];
-}
 
+/* ==========================================================================
+   Skills Pill Badges
+   ========================================================================== */
 .skillLabels p {
   @apply px-6 py-2 border rounded-full w-max text-[#E1E1E1];
 }
+
+/* ==========================================================================
+   Theme Button with Swipe-In Hover Animation
+   ========================================================================== */
 .btn {
   position: relative;
   isolation: isolate;
@@ -130,6 +150,9 @@ body {
   color: #ffffff;
 }
 
+/* ==========================================================================
+   Splash Screen Gradient Fill Animation
+   ========================================================================== */
 .fill-text-anim {
   background: linear-gradient(
     to right,

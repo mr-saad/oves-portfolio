@@ -1,11 +1,16 @@
 import { motion } from "framer-motion"
-import pageAnimation from "../lib/pageAnimation"
 import { useForm, ValidationError } from "@formspree/react"
+import pageAnimation from "../lib/pageAnimation"
 
+/**
+ * Contact Component
+ * Direct messaging inquiry form integrated with Formspree.
+ */
 export default function Contact() {
   const formKey = import.meta.env.VITE_FORMSPREE_KEY || "xwpgqjoj"
   const [state, sendFn] = useForm(formKey)
 
+  // Handle form submission and success notifications
   const submitFn = async (e) => {
     e.preventDefault()
     try {
@@ -31,7 +36,9 @@ export default function Contact() {
       <h1 className="highlight text-3xl font-medium mb-8 text-center">
         Contact
       </h1>
+
       <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
+        {/* Name Input */}
         <input
           name="Name"
           placeholder="Name"
@@ -41,6 +48,8 @@ export default function Contact() {
           minLength={3}
           maxLength={20}
         />
+
+        {/* Email Input */}
         <input
           name="Email"
           placeholder="E-Mail"
@@ -48,6 +57,8 @@ export default function Contact() {
           type="email"
           required
         />
+
+        {/* Message Input */}
         <textarea
           rows={5}
           className="input rounded-xl!"
@@ -55,12 +66,17 @@ export default function Contact() {
           id="message"
           required
           placeholder="Type Something"
-        ></textarea>
+        />
+
+        {/* Submit Button */}
         <button
+          type="submit"
           disabled={state.submitting}
           className="btn group justify-self-start disabled:opacity-50"
         >
-          <span className="relative z-10">Send Message</span>
+          <span className="relative z-10">
+            {state.submitting ? "Sending..." : "Send Message"}
+          </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -77,6 +93,8 @@ export default function Contact() {
             <path d="m12 5 7 7-7 7" />
           </svg>
         </button>
+
+        {/* Error Validation Feedback */}
         <ValidationError
           className="text-red-600"
           errors={state.errors}

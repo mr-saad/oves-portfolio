@@ -1,6 +1,10 @@
 import { motion } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 
+/**
+ * Skills Component
+ * Categorized listing of design disciplines, tools, and technical competencies.
+ */
 export default function Skills() {
   return (
     <motion.div
@@ -11,6 +15,7 @@ export default function Skills() {
       exit="exit"
     >
       <div className="grid gap-10 skillLabels">
+        {/* UX Skills Category */}
         <div>
           <div className="font-medium highlight w-max mb-3 bg-[#1a1a1a] px-6 py-2 rounded-full">
             UX Skills
@@ -23,28 +28,34 @@ export default function Skills() {
             <p>Usability testing</p>
           </div>
         </div>
+
+        {/* UI Skills Category */}
         <div>
           <div className="font-medium highlight w-max mb-3 bg-[#1a1a1a] px-6 py-2 rounded-full">
             UI Skills
           </div>
           <div className="flex flex-wrap gap-3">
             <p>Visual design</p>
-            <p>Typography </p>
+            <p>Typography</p>
             <p>Color theory</p>
             <p>Design system</p>
           </div>
         </div>
+
+        {/* Tools & Services Category */}
         <div>
           <div className="font-medium highlight w-max mb-3 bg-[#1a1a1a] px-6 py-2 rounded-full">
             Tools & Services
           </div>
           <div className="flex flex-wrap gap-3">
             <p>Figma</p>
-            <p>Canva </p>
+            <p>Canva</p>
             <p>Photoshop</p>
             <p>Wordpress</p>
           </div>
         </div>
+
+        {/* Development & Others */}
         <div>
           <div className="font-medium highlight w-max mb-3 bg-[#1a1a1a] px-6 py-2 rounded-full">
             Others

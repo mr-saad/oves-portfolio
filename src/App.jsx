@@ -1,29 +1,47 @@
+import { useEffect, useState } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router"
+import { AnimatePresence, motion } from "framer-motion"
+
+// Navigation & Layout Components
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
+
+// Page Routes
 import Home from "./routes/Home"
 import Projects from "./routes/Projects"
 import Skills from "./routes/Skills"
 import Contact from "./routes/Contact"
-import { AnimatePresence, motion } from "framer-motion"
-import Footer from "./components/Footer"
-import { useEffect, useState } from "react"
 
+/**
+ * App Component
+ * Root component managing initial splash screen, global layout alignment,
+ * and page transitions. Automatically redirects to Home on fresh reload.
+ */
 function App() {
   const [loading, setLoading] = useState(true)
   const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
+    // Redirect to home page on initial load or browser refresh
     if (window.location.pathname !== "/") {
       navigate("/", { replace: true })
     }
+
+    // Dismiss splash screen after 3.5 seconds
     const timer = setTimeout(() => setLoading(false), 3500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [navigate])
+
   return (
     <>
+      {/* Initial Animated Splash Screen */}
       <AnimatePresence>{loading && <Initial />}</AnimatePresence>
+
+      {/* Global Header Navigation */}
       <Navbar />
+
+      {/* Main Content Area with Route Transitions */}
       <main className="max-w-5xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 mt-4 md:mt-8 pb-6 min-h-[80vh]">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
@@ -34,6 +52,8 @@ function App() {
           </Routes>
         </AnimatePresence>
       </main>
+
+      {/* Global Footer */}
       <Footer />
     </>
   )
@@ -41,6 +61,10 @@ function App() {
 
 export default App
 
+/**
+ * Initial Component
+ * Fullscreen introductory greeting with animated gradient-filled typography.
+ */
 function Initial() {
   return (
     <motion.div
