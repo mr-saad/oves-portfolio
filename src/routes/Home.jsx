@@ -10,26 +10,26 @@ const BIO_TEXT =
 
 /**
  * ScrollWordReveal Component
- * Reveals words progressively as the user scrolls, transitioning opacity
- * and color from subtle muted zinc to illuminated white.
+ * Starts with no text filled (all words dim / muted).
+ * As the user scrolls from the top of the page, words progressively
+ * illuminate from dark muted zinc to crisp white.
  */
 function ScrollWordReveal({ text, className }) {
-  const containerRef = useRef(null)
+  const { scrollY } = useScroll()
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 0.9", "start 0.35"],
-  })
+  // Map scroll from 0px (top of page: 0% filled) to 210px (100% filled)
+  const progress = useTransform(scrollY, [0, 210], [0, 1])
 
   const words = text.split(" ")
+  const step = 1 / words.length
 
   return (
-    <p ref={containerRef} className={className}>
+    <p className={className}>
       {words.map((word, i) => {
-        const start = i / words.length
-        const end = start + 1 / words.length
+        const start = i * step
+        const end = Math.min(1, start + step * 1.5)
         return (
-          <ScrollWord key={i} progress={scrollYProgress} range={[start, end]}>
+          <ScrollWord key={i} progress={progress} range={[start, end]}>
             {word}
           </ScrollWord>
         )
@@ -39,13 +39,13 @@ function ScrollWordReveal({ text, className }) {
 }
 
 function ScrollWord({ children, progress, range }) {
-  const opacity = useTransform(progress, range, [0.25, 1])
-  const color = useTransform(progress, range, ["#52525b", "#d5d5d5"])
+  const opacity = useTransform(progress, range, [0.18, 1])
+  const color = useTransform(progress, range, ["#2d2d30", "#ffffff"])
 
   return (
     <motion.span
       style={{ opacity, color }}
-      className="inline-block mr-[0.3em]"
+      className="inline-block mr-[0.3em] transition-colors"
     >
       {children}
     </motion.span>
