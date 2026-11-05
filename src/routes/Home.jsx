@@ -119,14 +119,18 @@ const tokens = [
   { char: "g" },
 ]
 
+// Track whether the typewriter animation has completed during the session.
+// Resets to false on page refresh/reload, but stays true during client-side route navigation.
+let hasPlayedTypewriter = false
+
 /**
  * Home Component
  * Landing page with natural typewriter heading, bio summary, and resume download.
  */
 export default function Home() {
-  const [hasStarted, setHasStarted] = useState(false)
-  const [index, setIndex] = useState(0)
-  const [showCursor, setShowCursor] = useState(true)
+  const [hasStarted, setHasStarted] = useState(() => hasPlayedTypewriter)
+  const [index, setIndex] = useState(() => (hasPlayedTypewriter ? tokens.length : 0))
+  const [showCursor, setShowCursor] = useState(() => !hasPlayedTypewriter)
 
   // Motion value tracking scroll gestures without scrolling the screen
   const rawProgress = useMotionValue(0)
@@ -267,8 +271,11 @@ export default function Home() {
     v >= 0.85 ? "auto" : "none"
   )
 
-  // Delay typewriter initiation until splash screen completes (if present)
+  // Delay typewriter initiation until splash screen completes (if present).
+  // Only runs on the first load of the session (skipped if already completed).
   useEffect(() => {
+    if (hasPlayedTypewriter) return
+
     const isSplashPresent = !!document.querySelector(".fill-text-anim")
     const startDelay = isSplashPresent ? 3600 : 350
 
@@ -302,15 +309,25 @@ export default function Home() {
     return () => clearTimeout(timeout)
   }, [hasStarted, index])
 
-  // Hide and remove the blinking cursor once typing completes
+  // Hide and remove the blinking cursor once typing completes, and flag as played
   useEffect(() => {
     if (index >= tokens.length) {
+      hasPlayedTypewriter = true
       const hideTimer = setTimeout(() => {
         setShowCursor(false)
       }, 400)
       return () => clearTimeout(hideTimer)
     }
   }, [index])
+
+  // If user navigates away after typing started, ensure it doesn't replay when returning
+  useEffect(() => {
+    return () => {
+      if (hasStarted) {
+        hasPlayedTypewriter = true
+      }
+    }
+  }, [hasStarted])
 
   return (
     <motion.div
