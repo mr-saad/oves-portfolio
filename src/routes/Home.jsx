@@ -319,7 +319,7 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-0 sm:mt-2 md:mt-3"
+      className="mt-4 sm:mt-6 md:mt-8 lg:mt-10"
     >
       {/* Typewriter Heading with Animated Blinking Caret */}
       <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
@@ -347,7 +347,7 @@ export default function Home() {
       </h1>
 
       {/* Bio Summary Section with Progress Indicator Line & "SCROLL TO REVEAL" Header */}
-      <div className="my-5 sm:my-6 md:my-8 max-w-2xl">
+      <div className="mt-8 sm:mt-10 md:mt-14 mb-8 sm:mb-10 md:mb-12 max-w-2xl">
         <div className="relative pl-5 sm:pl-6">
           {/* Left vertical progress track indicator (compact height matching design) */}
           <div className="absolute left-0 top-1 h-[120px] sm:h-[130px] w-[1px] bg-white/10 overflow-hidden">
