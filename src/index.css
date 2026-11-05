@@ -53,7 +53,7 @@
 }
 
 /* ==========================================================================
-   Global Base & Scrollbar Reset
+   Global Base, Scrollbar Reset & Text Selection
    ========================================================================== */
 * {
   font-family: Outfit, sans-serif;
@@ -65,6 +65,16 @@
   display: none;
   width: 0;
   height: 0;
+}
+
+::selection {
+  background-color: #A65F1B;
+  color: #000000;
+}
+
+::-moz-selection {
+  background-color: #A65F1B;
+  color: #000000;
 }
 
 body {
