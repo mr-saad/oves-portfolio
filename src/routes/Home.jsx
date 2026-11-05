@@ -235,42 +235,60 @@ export default function Home() {
             )}
           </h1>
 
-          {/* Bio Summary with Scroll Word Reveal driven by pinned scroll progress */}
-          <ScrollWordReveal
-            text={BIO_TEXT}
-            progress={wordProgress}
-            className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed max-w-2xl"
-          />
+          {/* Bio Summary Section with Progress Indicator Line & "SCROLL TO REVEAL" Header */}
+          <div className="my-6 sm:my-8 md:my-10 max-w-2xl">
+            <div className="relative pl-5 sm:pl-6">
+              {/* Left vertical progress track indicator */}
+              <div className="absolute left-0 top-1 bottom-1 w-[1.5px] rounded-full bg-white/10 overflow-hidden">
+                <motion.div
+                  style={{ scaleY: wordProgress }}
+                  className="w-full h-full bg-[#d5d5d5] origin-top"
+                />
+              </div>
 
-          {/* Resume Download CTA (Hidden by default, smoothly appears when word reveal completes) */}
-          <motion.div
-            style={{
-              opacity: buttonOpacity,
-              y: buttonY,
-              scale: buttonScale,
-              pointerEvents: buttonPointerEvents,
-            }}
-            className="w-fit"
-          >
-            <a download href="/OvesAroraResume.docx" className="btn group">
-              <span className="relative z-10">Download Resume</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
-              >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </a>
-          </motion.div>
+              {/* "SCROLL TO REVEAL" label */}
+              <p className="text-[11px] sm:text-xs font-mono font-medium tracking-[0.25em] uppercase text-neutral-400 mb-3 sm:mb-4 select-none">
+                SCROLL TO REVEAL
+              </p>
+
+              {/* Bio Summary with Scroll Word Reveal driven by pinned scroll progress */}
+              <ScrollWordReveal
+                text={BIO_TEXT}
+                progress={wordProgress}
+                className="text-sm sm:text-base leading-relaxed"
+              />
+            </div>
+
+            {/* Resume Download CTA (Hidden by default, smoothly appears when word reveal completes) */}
+            <motion.div
+              style={{
+                opacity: buttonOpacity,
+                y: buttonY,
+                scale: buttonScale,
+                pointerEvents: buttonPointerEvents,
+              }}
+              className="w-fit mt-6 sm:mt-8 pl-5 sm:pl-6"
+            >
+              <a download href="/OvesAroraResume.docx" className="btn group">
+                <span className="relative z-10">Download Resume</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </motion.div>
+          </div>
         </div>
       </div>
     </motion.div>
