@@ -4,6 +4,30 @@ import { Github, Instagram, Linkedin, MapPin, Phone } from "lucide-react"
 
 export default function Footer() {
   const { pathname } = useLocation()
+
+  const smoothScrollToTop = (duration = 900) => {
+    const startPosition = window.pageYOffset || document.documentElement.scrollTop
+    if (startPosition === 0) return
+    const startTime = performance.now()
+
+    const easeInOutCubic = (t) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+    const step = (currentTime) => {
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const ease = easeInOutCubic(progress)
+
+      window.scrollTo(0, startPosition * (1 - ease))
+
+      if (progress < 1) {
+        requestAnimationFrame(step)
+      }
+    }
+
+    requestAnimationFrame(step)
+  }
+
   return (
     <footer className="w-full border-t border-white/15 mt-20">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 py-10">
@@ -38,6 +62,7 @@ export default function Footer() {
                 <li key={link.route}>
                   <Link
                     to={link.route}
+                    onClick={() => smoothScrollToTop(900)}
                     className={`transition hover:text-[#A65F1B]! highlight text-xl ${
                       pathname === link.route ? "text-[#A65F1B]!" : ""
                     }`}
@@ -99,7 +124,7 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} -{" "}
           <Link
             to="/"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => smoothScrollToTop(900)}
             className="hover:text-white transition-colors"
           >
             ovesarora
