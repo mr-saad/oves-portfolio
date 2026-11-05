@@ -3,7 +3,8 @@ import pageAnimation from "../lib/pageAnimation"
 import { useForm, ValidationError } from "@formspree/react"
 
 export default function Contact() {
-  const [state, sendFn] = useForm(import.meta.env.VITE_FORMSPREE_KEY)
+  const formKey = import.meta.env.VITE_FORMSPREE_KEY || "xwpgqjoj"
+  const [state, sendFn] = useForm(formKey)
 
   const submitFn = async (e) => {
     e.preventDefault()
@@ -27,7 +28,9 @@ export default function Contact() {
       animate="animate"
       exit="exit"
     >
-      <h2 className="highlight text-3xl mb-10 text-center">Get in Touch</h2>
+      <h1 className="highlight text-3xl font-medium mb-8 text-center">
+        Contact
+      </h1>
       <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
         <input
           name="Name"
@@ -47,7 +50,7 @@ export default function Contact() {
         />
         <textarea
           rows={5}
-          className="input rounded-2xl!"
+          className="input rounded-xl!"
           name="Message"
           id="message"
           required
@@ -57,19 +60,18 @@ export default function Contact() {
           disabled={state.submitting}
           className="btn group justify-self-start disabled:opacity-50"
         >
-          Send Message
+          <span className="relative z-10">Send Message</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#780606"
+            stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="rounded-full transition bg-[#d5d5d5] group-hover:bg-transparent group-focus-visible:bg-transparent group-hover:translate-x-2
-group-focus-visible:translate-x-2 p-0.5"
+            className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
           >
             <path d="M5 12h14" />
             <path d="m12 5 7 7-7 7" />

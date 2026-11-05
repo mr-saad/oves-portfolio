@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router"
+import { Route, Routes, useLocation, useNavigate } from "react-router"
 import Navbar from "./components/Navbar"
 import Home from "./routes/Home"
 import Projects from "./routes/Projects"
@@ -11,15 +11,20 @@ import { useEffect, useState } from "react"
 function App() {
   const [loading, setLoading] = useState(true)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 3500)
+    if (window.location.pathname !== "/") {
+      navigate("/", { replace: true })
+    }
+    const timer = setTimeout(() => setLoading(false), 3500)
+    return () => clearTimeout(timer)
   }, [])
   return (
     <>
       <AnimatePresence>{loading && <Initial />}</AnimatePresence>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-7 py-3 min-h-[80vh]">
+      <main className="max-w-5xl mx-auto px-10 md:px-16 lg:px-24 mt-4 md:mt-8 pb-6 min-h-[80vh]">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" index element={<Home />} />
@@ -45,11 +50,10 @@ function Initial() {
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="text-4xl md:text-5xl text-white after:left-0 after:overflow-clip after:transition-all after:duration-3000 after:ease-in-out after:animate-[fillText_3s_500ms_ease-in-out_forwards] relative after:absolute after:w-0 after:text-[#780606] after:content-[attr(data-text)] "
-        data-text="ovesarora"
+        transition={{ delay: 0.2 }}
+        className="text-4xl md:text-5xl font-medium tracking-tight fill-text-anim"
       >
-        <span>oves</span>arora
+        ovesarora
       </motion.p>
     </motion.div>
   )

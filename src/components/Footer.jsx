@@ -5,14 +5,13 @@ import { Github, Instagram, Linkedin, MapPin, Phone } from "lucide-react"
 export default function Footer() {
   const { pathname } = useLocation()
   return (
-    <footer className="p-7 border-t border-white/5 mt-20">
-      <div className="max-w-6xl mx-auto px-0 md:px-5">
-        <h1 className="highlight text-3xl md:text-4xl z-3 mb-5">ovesarora</h1>
-        <div className="max-w-sm flex items-center justify-between rounded-full pl-5 p-3.5 bg-[#0a0a0a] focus-within:outline  focus-within:outline-[#d5d5d5]">
+    <footer className="w-full border-t border-white/15 mt-20">
+      <div className="max-w-5xl mx-auto px-10 md:px-16 lg:px-24 py-10">
+        <div className="max-w-sm flex items-center justify-between rounded-full pl-5 p-3 bg-[#0a0a0a] border border-white/15 transition-all duration-300 focus-within:border-white/45 focus-within:shadow-[0_0_0_1px_rgba(255,255,255,0.2)]">
           <input
             type="email"
             placeholder="E-Mail"
-            className="outline-none min-w-0 text-[#d5d5d5] w-full"
+            className="outline-none min-w-0 text-[#d5d5d5] placeholder:text-zinc-500 bg-transparent w-full"
           />
           <button className="cursor-pointer group">
             <svg
@@ -21,11 +20,11 @@ export default function Footer() {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#d5d5d5"
+              stroke="black"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="rounded-full bg-[#780606] p-1 scale-120 outline-1 outline-[#780606] transition hover:bg-transparent hover:stroke-[#780606] group-focus:bg-transparent group-focus:stroke-[#780606]"
+              className="rounded-full bg-[#A65F1B] p-1 scale-120 outline-1 outline-[#A65F1B] transition hover:bg-transparent hover:stroke-[#A65F1B] group-focus:bg-transparent group-focus:stroke-[#A65F1B]"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -39,8 +38,8 @@ export default function Footer() {
                 <li key={link.route}>
                   <Link
                     to={link.route}
-                    className={`transition hover:text-[#780606]! highlight text-xl ${
-                      pathname === link.route ? "text-[#780606]!" : ""
+                    className={`transition hover:text-[#A65F1B]! highlight text-xl ${
+                      pathname === link.route ? "text-[#A65F1B]!" : ""
                     }`}
                   >
                     {link.title}
@@ -97,7 +96,15 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-center">
-          &copy; {new Date().getFullYear()} - ovesarora All Rights Reserved
+          &copy; {new Date().getFullYear()} -{" "}
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="hover:text-white transition-colors"
+          >
+            ovesarora
+          </Link>{" "}
+          All Rights Reserved
         </p>
       </div>
     </footer>

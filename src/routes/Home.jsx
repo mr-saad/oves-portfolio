@@ -9,36 +9,35 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-10 md:mt-30"
+      className="mt-6 md:mt-10"
     >
-      <h1 className="md:text-4xl text-[1.8rem] font-extralight">
+      <h1 className="md:text-4xl text-[1.8rem] font-normal">
         Hey!
-        <br /> I’m <span className="highlight font-light">Ovesarora</span>
+        <br /> I’m <span className="highlight">Ovesarora</span>{" "}
         Exploring <br /> & Learning
       </h1>
       <p className="my-10">
         I am a passionate UI/UX design aspirant focused on creating clean,
-        minimal, intuitive, and user-centered digital experiences. I enjoy
+        minimal, intuitive and user-centered digital experiences. I enjoy
         turning complex problem into simple, elegant interfaces through
-        thoughtful research, wireframing, and modern visual design. Constantly
+        thoughtful research, wireframing and modern visual design. Constantly
         learning and exploring new tools, I bring fresh creativity, attention to
-        detail, and a strong desire to craft meaningful products that truly
-        improve the user’s journey
+        detail and a strong desire to craft meaningful products that truly
+        improve the user’s journey.
       </p>
       <a download href="/OvesAroraResume.docx" className="btn group">
-        Download Resume
+        <span className="relative z-10">Download Resume</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#780606"
+          stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="rounded-full transition bg-[#d5d5d5] group-hover:bg-transparent group-focus-visible:bg-transparent group-hover:translate-x-2
-group-focus-visible:translate-x-2 p-0.5"
+          className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
         >
           <path d="M5 12h14" />
           <path d="m12 5 7 7-7 7" />

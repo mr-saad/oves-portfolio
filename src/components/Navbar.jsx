@@ -13,10 +13,18 @@ export default function Navbar() {
     document.documentElement.style.overflow = "visible"
   }
   return (
-    <div className="border-b border-white/5">
-      <nav className="flex justify-between items-center p-7 max-w-6xl mx-auto tracking-tight">
-        <h1 onClick={closeUl} className="highlight text-3xl md:text-4xl z-3">
-          <Link to={"/"}>ovesarora</Link>
+    <div className="w-full border-b border-white/5">
+      <nav className="flex justify-between items-center py-7 px-6 sm:px-8 md:px-12 lg:px-16 w-full tracking-tight">
+        <h1 className="highlight text-3xl md:text-4xl z-3">
+          <Link
+            to="/"
+            onClick={() => {
+              closeUl()
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }}
+          >
+            ovesarora
+          </Link>
         </h1>
         <button
           onClick={() => {
@@ -67,8 +75,8 @@ export default function Navbar() {
                     <Link
                       onClick={closeUl}
                       to={link.route}
-                      className={`transition hover:text-[#780606] ${
-                        pathname === link.route ? "text-[#780606]" : ""
+                      className={`transition hover:text-[#A65F1B] ${
+                        pathname === link.route ? "text-[#A65F1B]" : ""
                       }`}
                     >
                       {link.title}
@@ -80,8 +88,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/projects"}
-                  className={`transition hover:text-[#780606] ${
-                    pathname === "/projects" ? "text-[#780606]" : ""
+                  className={`transition hover:text-[#A65F1B] ${
+                    pathname === "/projects" ? "text-[#A65F1B]" : ""
                   }`}
                 >
                   Projects
@@ -91,8 +99,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/skills"}
-                  className={`transition hover:text-[#780606] ${
-                    pathname === "/skills" ? "text-[#780606]" : ""
+                  className={`transition hover:text-[#A65F1B] ${
+                    pathname === "/skills" ? "text-[#A65F1B]" : ""
                   }`}
                 >
                   Skills
@@ -102,8 +110,8 @@ export default function Navbar() {
                 <Link
                   onClick={closeUl}
                   to={"/contact"}
-                  className={`transition hover:text-[#780606] ${
-                    pathname === "/contact" ? "text-[#780606]" : ""
+                  className={`transition hover:text-[#A65F1B] ${
+                    pathname === "/contact" ? "text-[#A65F1B]" : ""
                   }`}
                 >
                   Contact

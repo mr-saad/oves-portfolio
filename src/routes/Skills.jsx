@@ -10,7 +10,6 @@ export default function Skills() {
       animate="animate"
       exit="exit"
     >
-      <h1 className="highlight text-3xl font-medium mb-10">Skills</h1>
       <div className="grid gap-10 skillLabels">
         <div>
           <div className="font-medium highlight w-max mb-3 bg-[#1a1a1a] px-6 py-2 rounded-full">
