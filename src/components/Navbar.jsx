@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <div className="w-full border-b border-white/5">
-      <nav className="max-w-5xl mx-auto flex justify-between items-center py-6 sm:py-7 px-6 sm:px-8 md:px-16 lg:px-24 w-full tracking-tight">
+      <nav className="flex justify-between items-center py-7 px-6 sm:px-8 md:px-12 lg:px-16 w-full tracking-tight">
         {/* Brand Logo - Navigates Home & Scrolls to Top */}
         <h1 className="highlight text-3xl md:text-4xl z-3">
           <Link
