@@ -8,44 +8,64 @@ import pageAnimation from "../lib/pageAnimation"
 const BIO_TEXT =
   "I am a passionate UI/UX design aspirant focused on creating clean, minimal, intuitive and user-centered digital experiences. I enjoy turning complex problem into simple, elegant interfaces through thoughtful research, wireframing and modern visual design. Constantly learning and exploring new tools, I bring fresh creativity, attention to detail and a strong desire to craft meaningful products that truly improve the user’s journey."
 
+const START_OPACITY = 0.15
+const SPREAD = 0.8
+const WORD_DURATION = 0.2
+
+function getWordProgressRange(index, count) {
+  const start = count <= 1 ? 0 : (index / (count - 1)) * SPREAD
+  return {
+    start,
+    end: Math.min(1, start + WORD_DURATION),
+  }
+}
+
+function getWordOpacity(progress, { start, end }, startOpacity = START_OPACITY) {
+  if (progress <= start) return startOpacity
+  if (progress >= end) return 1
+  const wordProgress = (progress - start) / (end - start)
+  return startOpacity + (1 - startOpacity) * wordProgress
+}
+
 /**
  * ScrollWordReveal Component
- * Starts with no text filled (all words dim / muted).
- * As the user scrolls from the top of the page, words progressively
- * illuminate from dark muted zinc to crisp white.
+ * Official Motion.dev Scroll Word Reveal implementation.
+ * Starts with no text filled (opacity 0.15). As user scrolls,
+ * words progressively illuminate to full white opacity 1.0.
  */
 function ScrollWordReveal({ text, className }) {
   const { scrollY } = useScroll()
 
-  // Map scroll from 0px (top of page: 0% filled) to 210px (100% filled)
-  const progress = useTransform(scrollY, [0, 210], [0, 1])
-
+  // Map window scroll: 0px (top: 0% filled) to 200px (100% filled)
+  const progress = useTransform(scrollY, [0, 200], [0, 1])
   const words = text.split(" ")
-  const step = 1 / words.length
 
   return (
     <p className={className}>
-      {words.map((word, i) => {
-        const start = i * step
-        const end = Math.min(1, start + step * 1.5)
-        return (
-          <ScrollWord key={i} progress={progress} range={[start, end]}>
-            {word}
-          </ScrollWord>
-        )
-      })}
+      {words.map((word, i) => (
+        <Word
+          key={i}
+          progress={progress}
+          index={i}
+          count={words.length}
+        >
+          {word}
+        </Word>
+      ))}
     </p>
   )
 }
 
-function ScrollWord({ children, progress, range }) {
-  const opacity = useTransform(progress, range, [0.18, 1])
-  const color = useTransform(progress, range, ["#2d2d30", "#ffffff"])
+function Word({ children, progress, index, count }) {
+  const range = getWordProgressRange(index, count)
+  const opacity = useTransform(progress, (latest) =>
+    getWordOpacity(latest, range, START_OPACITY)
+  )
 
   return (
     <motion.span
-      style={{ opacity, color }}
-      className="inline-block mr-[0.3em] transition-colors"
+      style={{ opacity }}
+      className="inline-block mr-[0.32em] text-[#d5d5d5] font-normal"
     >
       {children}
     </motion.span>
