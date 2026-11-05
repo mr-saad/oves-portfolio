@@ -238,16 +238,16 @@ export default function Home() {
           {/* Bio Summary Section with Progress Indicator Line & "SCROLL TO REVEAL" Header */}
           <div className="my-6 sm:my-8 md:my-10 max-w-2xl">
             <div className="relative pl-5 sm:pl-6">
-              {/* Left vertical progress track indicator */}
-              <div className="absolute left-0 top-1 bottom-1 w-[1.5px] rounded-full bg-white/10 overflow-hidden">
+              {/* Left vertical progress track indicator (compact height matching design) */}
+              <div className="absolute left-0 top-1 h-[120px] sm:h-[130px] w-[1px] bg-white/10 overflow-hidden">
                 <motion.div
                   style={{ scaleY: wordProgress }}
                   className="w-full h-full bg-[#d5d5d5] origin-top"
                 />
               </div>
 
-              {/* "SCROLL TO REVEAL" label */}
-              <p className="text-[11px] sm:text-xs font-mono font-medium tracking-[0.25em] uppercase text-neutral-400 mb-3 sm:mb-4 select-none">
+              {/* "SCROLL TO REVEAL" label (smaller, non-bold font) */}
+              <p className="text-[10px] sm:text-[10.5px] font-normal tracking-[0.26em] uppercase text-neutral-400 mb-3 sm:mb-4 select-none">
                 SCROLL TO REVEAL
               </p>
 
