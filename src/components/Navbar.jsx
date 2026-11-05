@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router"
+import { Link, useLocation, useNavigate } from "react-router"
 import { AnimatePresence, motion } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 import { links } from "../lib/links"
@@ -10,6 +10,7 @@ import { links } from "../lib/links"
  */
 export default function Navbar() {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const [showUl, setShowUl] = useState(false)
 
   // Close mobile navigation drawer and restore document scroll
@@ -17,6 +18,18 @@ export default function Navbar() {
     setShowUl(false)
     document.documentElement.style.overflow = "visible"
     window.scrollTo({ top: 0, behavior: "instant" })
+  }
+
+  // Handle logo click: always redirect to Home page, closing mobile menu and resetting scroll
+  const handleLogoClick = (e) => {
+    e.preventDefault()
+    closeUl()
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" })
+      navigate("/")
+    }
   }
 
   // Toggle mobile navigation drawer and lock/unlock document scroll
@@ -33,10 +46,7 @@ export default function Navbar() {
         <h1 className="highlight text-3xl md:text-4xl relative z-30">
           <Link
             to="/"
-            onClick={() => {
-              closeUl()
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            }}
+            onClick={handleLogoClick}
           >
             ovesarora
           </Link>

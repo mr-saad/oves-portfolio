@@ -144,7 +144,14 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} -{" "}
           <Link
             to="/"
-            onClick={() => smoothScrollToTop(900)}
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault()
+                smoothScrollToTop(900)
+              } else {
+                window.scrollTo({ top: 0, behavior: "instant" })
+              }
+            }}
             className="hover:text-white transition-colors"
           >
             ovesarora

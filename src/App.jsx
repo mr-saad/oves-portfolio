@@ -24,7 +24,7 @@ function App() {
   const hasMounted = useRef(false)
 
   useEffect(() => {
-    // Redirect to home page on initial cold load or browser refresh only
+    // Redirect to home page on initial cold load or browser refresh
     if (!hasMounted.current) {
       hasMounted.current = true
       if (window.location.pathname !== "/") {
@@ -32,9 +32,19 @@ function App() {
       }
     }
 
+    // On browser refresh or reload, reset the URL back to Home page
+    const handleBeforeUnload = () => {
+      window.history.replaceState(null, "", "/")
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload)
+
     // Dismiss splash screen after 3.5 seconds
     const timer = setTimeout(() => setLoading(false), 3500)
-    return () => clearTimeout(timer)
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload)
+      clearTimeout(timer)
+    }
   }, [navigate])
 
   return (
