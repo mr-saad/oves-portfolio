@@ -6,7 +6,7 @@ export default function Footer() {
   const { pathname } = useLocation()
   return (
     <footer className="w-full border-t border-white/15 mt-20">
-      <div className="max-w-5xl mx-auto px-10 md:px-16 lg:px-24 py-10">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 py-10">
         <div className="max-w-sm flex items-center justify-between rounded-full pl-5 p-3 bg-[#0a0a0a] border border-white/15 transition-all duration-300 focus-within:border-white/45 focus-within:shadow-[0_0_0_1px_rgba(255,255,255,0.2)]">
           <input
             type="email"

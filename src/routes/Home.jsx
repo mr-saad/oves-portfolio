@@ -9,14 +9,14 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-6 md:mt-10"
+      className="mt-4 sm:mt-6 md:mt-10"
     >
-      <h1 className="md:text-4xl text-[1.8rem] font-normal">
+      <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight">
         Hey!
         <br /> I’m <span className="highlight">Ovesarora</span>{" "}
         Exploring <br /> & Learning
       </h1>
-      <p className="my-10">
+      <p className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed text-[#888] sm:text-[#5E5E5E] max-w-2xl">
         I am a passionate UI/UX design aspirant focused on creating clean,
         minimal, intuitive and user-centered digital experiences. I enjoy
         turning complex problem into simple, elegant interfaces through
