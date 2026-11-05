@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useEffect, useState } from "react"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 
 /**
@@ -124,27 +124,67 @@ const tokens = [
  * Landing page with natural typewriter heading, bio summary, and resume download.
  */
 export default function Home() {
-  const containerRef = useRef(null)
   const [hasStarted, setHasStarted] = useState(false)
   const [index, setIndex] = useState(0)
   const [showCursor, setShowCursor] = useState(true)
 
-  // Track scroll travel through the pinned storytelling container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 109px", "end end"],
+  // Motion value tracking scroll gestures without scrolling the screen
+  const rawProgress = useMotionValue(0)
+  const smoothProgress = useSpring(rawProgress, {
+    stiffness: 120,
+    damping: 26,
+    mass: 0.2,
   })
 
-  // Word reveal: Progresses slowly and smoothly from 0 to 1 over the scroll track
-  const wordProgress = useTransform(scrollYProgress, [0, 0.85], [0, 1])
+  // Prevent home page window scroll; gestures drive animations only
+  useEffect(() => {
+    const originalOverflow = document.documentElement.style.overflow
+    document.documentElement.style.overflow = "hidden"
+    window.scrollTo({ top: 0, behavior: "instant" })
 
-  // Resume button: Hidden by default (opacity 0, pointer-events none).
-  // Smoothly reveals once the scroll word reveal animation completes (85% to 96% scroll).
-  const buttonOpacity = useTransform(scrollYProgress, [0.85, 0.96], [0, 1])
-  const buttonY = useTransform(scrollYProgress, [0.85, 0.96], [16, 0])
-  const buttonScale = useTransform(scrollYProgress, [0.85, 0.96], [0.94, 1])
-  const buttonPointerEvents = useTransform(scrollYProgress, (v) =>
-    v >= 0.88 ? "auto" : "none"
+    const handleWheel = (e) => {
+      e.preventDefault()
+      // Deliberate, relaxed fill speed per wheel notch
+      const delta = e.deltaY * 0.0009
+      rawProgress.set(Math.max(0, Math.min(1, rawProgress.get() + delta)))
+    }
+
+    let startY = 0
+    const handleTouchStart = (e) => {
+      startY = e.touches[0].clientY
+    }
+    const handleTouchMove = (e) => {
+      const currentY = e.touches[0].clientY
+      const deltaY = startY - currentY
+      startY = currentY
+      const delta = deltaY * 0.0025
+      rawProgress.set(Math.max(0, Math.min(1, rawProgress.get() + delta)))
+    }
+
+    window.addEventListener("wheel", handleWheel, { passive: false })
+    window.addEventListener("touchstart", handleTouchStart, { passive: true })
+    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+
+    return () => {
+      document.documentElement.style.overflow = originalOverflow || "visible"
+      window.removeEventListener("wheel", handleWheel)
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchmove", handleTouchMove)
+    }
+  }, [rawProgress])
+
+  // Word reveal: Progresses slowly and smoothly from 0 to 1 over the gesture track
+  const wordProgress = useTransform(smoothProgress, [0, 0.85], [0, 1])
+
+  // Left vertical indicator line fill
+  const lineScale = useTransform(smoothProgress, [0, 0.85], [0, 1])
+
+  // Resume button: Hidden by default, smoothly reveals when word reveal completes
+  const buttonOpacity = useTransform(smoothProgress, [0.82, 0.95], [0, 1])
+  const buttonY = useTransform(smoothProgress, [0.82, 0.95], [16, 0])
+  const buttonScale = useTransform(smoothProgress, [0.82, 0.95], [0.94, 1])
+  const buttonPointerEvents = useTransform(smoothProgress, (v) =>
+    v >= 0.85 ? "auto" : "none"
   )
 
   // Delay typewriter initiation until splash screen completes (if present)
@@ -199,91 +239,86 @@ export default function Home() {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="mt-0"
+      className="mt-2 sm:mt-4 md:mt-6"
     >
-      {/* Pinned Scroll Track: Screen stays pinned in this section while scroll drives the word reveal */}
-      <div ref={containerRef} className="relative min-h-[275vh]">
-        <div className="sticky top-[109px] md:top-[129px]">
-          {/* Typewriter Heading with Animated Blinking Caret */}
-          <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
-            {tokens.slice(0, index).map((token, i) => {
-              if (token.isLineBreak) {
-                return <br key={i} />
-              }
-              return (
-                <span
-                  key={i}
-                  className={token.highlight ? "highlight" : ""}
-                >
-                  {token.char}
-                </span>
-              )
-            })}
-            {showCursor && (
-              <span
-                aria-hidden="true"
-                className="inline-block text-[#A65F1B] font-light ml-0.5 typewriter-cursor"
-              >
-                |
-              </span>
-            )}
-          </h1>
-
-          {/* Bio Summary Section with Progress Indicator Line & "SCROLL TO REVEAL" Header */}
-          <div className="my-6 sm:my-8 md:my-10 max-w-2xl">
-            <div className="relative pl-5 sm:pl-6">
-              {/* Left vertical progress track indicator (compact height matching design) */}
-              <div className="absolute left-0 top-1 h-[120px] sm:h-[130px] w-[1px] bg-white/10 overflow-hidden">
-                <motion.div
-                  style={{ scaleY: wordProgress }}
-                  className="w-full h-full bg-[#d5d5d5] origin-top"
-                />
-              </div>
-
-              {/* "SCROLL TO REVEAL" label (smaller, non-bold font) */}
-              <p className="text-[10px] sm:text-[10.5px] font-normal tracking-[0.26em] uppercase text-neutral-400 mb-3 sm:mb-4 select-none">
-                SCROLL TO REVEAL
-              </p>
-
-              {/* Bio Summary with Scroll Word Reveal driven by pinned scroll progress */}
-              <ScrollWordReveal
-                text={BIO_TEXT}
-                progress={wordProgress}
-                className="text-sm sm:text-base leading-relaxed"
-              />
-            </div>
-
-            {/* Resume Download CTA (Hidden by default, smoothly appears when word reveal completes) */}
-            <motion.div
-              style={{
-                opacity: buttonOpacity,
-                y: buttonY,
-                scale: buttonScale,
-                pointerEvents: buttonPointerEvents,
-              }}
-              className="w-fit mt-6 sm:mt-8 pl-5 sm:pl-6"
+      {/* Typewriter Heading with Animated Blinking Caret */}
+      <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
+        {tokens.slice(0, index).map((token, i) => {
+          if (token.isLineBreak) {
+            return <br key={i} />
+          }
+          return (
+            <span
+              key={i}
+              className={token.highlight ? "highlight" : ""}
             >
-              <a download href="/OvesAroraResume.docx" className="btn group">
-                <span className="relative z-10">Download Resume</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </a>
-            </motion.div>
+              {token.char}
+            </span>
+          )
+        })}
+        {showCursor && (
+          <span
+            aria-hidden="true"
+            className="inline-block text-[#A65F1B] font-light ml-0.5 typewriter-cursor"
+          >
+            |
+          </span>
+        )}
+      </h1>
+
+      {/* Bio Summary Section with Progress Indicator Line & "SCROLL TO REVEAL" Header */}
+      <div className="my-5 sm:my-6 md:my-8 max-w-2xl">
+        <div className="relative pl-5 sm:pl-6">
+          {/* Left vertical progress track indicator (compact height matching design) */}
+          <div className="absolute left-0 top-1 h-[120px] sm:h-[130px] w-[1px] bg-white/10 overflow-hidden">
+            <motion.div
+              style={{ scaleY: lineScale }}
+              className="w-full h-full bg-[#d5d5d5] origin-top"
+            />
           </div>
+
+          {/* "SCROLL TO REVEAL" label (smaller, non-bold font) */}
+          <p className="text-[10px] sm:text-[10.5px] font-normal tracking-[0.26em] uppercase text-neutral-400 mb-3 sm:mb-4 select-none">
+            SCROLL TO REVEAL
+          </p>
+
+          {/* Bio Summary with Scroll Word Reveal driven by gesture progress */}
+          <ScrollWordReveal
+            text={BIO_TEXT}
+            progress={wordProgress}
+            className="text-sm sm:text-base leading-relaxed"
+          />
         </div>
+
+        {/* Resume Download CTA (Hidden by default, smoothly appears when word reveal completes) */}
+        <motion.div
+          style={{
+            opacity: buttonOpacity,
+            y: buttonY,
+            scale: buttonScale,
+            pointerEvents: buttonPointerEvents,
+          }}
+          className="w-fit mt-6 sm:mt-8 pl-5 sm:pl-6"
+        >
+          <a download href="/OvesAroraResume.docx" className="btn group">
+            <span className="relative z-10">Download Resume</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        </motion.div>
       </div>
     </motion.div>
   )
