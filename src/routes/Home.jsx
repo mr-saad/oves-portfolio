@@ -1,6 +1,56 @@
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
+
+/**
+ * Bio statement text for scroll word reveal animation.
+ */
+const BIO_TEXT =
+  "I am a passionate UI/UX design aspirant focused on creating clean, minimal, intuitive and user-centered digital experiences. I enjoy turning complex problem into simple, elegant interfaces through thoughtful research, wireframing and modern visual design. Constantly learning and exploring new tools, I bring fresh creativity, attention to detail and a strong desire to craft meaningful products that truly improve the user’s journey."
+
+/**
+ * ScrollWordReveal Component
+ * Reveals words progressively as the user scrolls, transitioning opacity
+ * and color from subtle muted zinc to illuminated white.
+ */
+function ScrollWordReveal({ text, className }) {
+  const containerRef = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.9", "start 0.35"],
+  })
+
+  const words = text.split(" ")
+
+  return (
+    <p ref={containerRef} className={className}>
+      {words.map((word, i) => {
+        const start = i / words.length
+        const end = start + 1 / words.length
+        return (
+          <ScrollWord key={i} progress={scrollYProgress} range={[start, end]}>
+            {word}
+          </ScrollWord>
+        )
+      })}
+    </p>
+  )
+}
+
+function ScrollWord({ children, progress, range }) {
+  const opacity = useTransform(progress, range, [0.25, 1])
+  const color = useTransform(progress, range, ["#52525b", "#d5d5d5"])
+
+  return (
+    <motion.span
+      style={{ opacity, color }}
+      className="inline-block mr-[0.3em]"
+    >
+      {children}
+    </motion.span>
+  )
+}
 
 /**
  * Character tokens defining the natural typewriter sequence.
@@ -151,16 +201,11 @@ export default function Home() {
         </AnimatePresence>
       </h1>
 
-      {/* Bio Summary */}
-      <p className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed text-[#888] sm:text-[#5E5E5E] max-w-2xl">
-        I am a passionate UI/UX design aspirant focused on creating clean,
-        minimal, intuitive and user-centered digital experiences. I enjoy
-        turning complex problem into simple, elegant interfaces through
-        thoughtful research, wireframing and modern visual design. Constantly
-        learning and exploring new tools, I bring fresh creativity, attention to
-        detail and a strong desire to craft meaningful products that truly
-        improve the user’s journey.
-      </p>
+      {/* Bio Summary with Scroll Word Reveal */}
+      <ScrollWordReveal
+        text={BIO_TEXT}
+        className="my-6 sm:my-8 md:my-10 text-sm sm:text-base leading-relaxed max-w-2xl"
+      />
 
       {/* Resume Download CTA */}
       <a download href="/OvesAroraResume.docx" className="btn group">
