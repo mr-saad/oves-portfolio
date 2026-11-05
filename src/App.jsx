@@ -46,7 +46,7 @@ function App() {
       <Navbar />
 
       {/* Main Content Area with Route Transitions */}
-      <main className="max-w-5xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 mt-4 sm:mt-6 md:mt-4 pb-6 min-h-[80vh]">
+      <main className="max-w-5xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 mt-4 sm:mt-6 md:mt-8 pb-6 min-h-[80vh]">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" index element={<Home />} />
