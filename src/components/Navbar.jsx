@@ -86,30 +86,35 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="z-20 grid content-center text-center text-2xl sm:text-[1.65rem] font-bold text-[#777] justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
+              className="z-20 grid content-center text-center text-2xl sm:text-[1.65rem] tracking-wider justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
             >
-              {links.map((link, index) => (
-                <motion.li
-                  key={link.route}
-                  transition={{
-                    duration: 0.75,
-                    ease: [0.25, 1, 0.5, 1],
-                    delay: 0.12 + index * 0.18,
-                  }}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                >
-                  <Link
-                    onClick={closeUl}
-                    to={link.route}
-                    className={`transition hover:text-[#A65F1B] ${
-                      pathname === link.route ? "text-[#A65F1B]" : ""
-                    }`}
+              {links.map((link, index) => {
+                const isActive = pathname === link.route
+                return (
+                  <motion.li
+                    key={link.route}
+                    transition={{
+                      duration: 0.75,
+                      ease: [0.25, 1, 0.5, 1],
+                      delay: 0.12 + index * 0.18,
+                    }}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
                   >
-                    {link.title}
-                  </Link>
-                </motion.li>
-              ))}
+                    <Link
+                      onClick={closeUl}
+                      to={link.route}
+                      className={`transition-colors duration-300 ${
+                        isActive
+                          ? "font-bold text-[#A65F1B]"
+                          : "font-medium text-[#777] hover:text-[#A65F1B]"
+                      }`}
+                    >
+                      {link.title}
+                    </Link>
+                  </motion.li>
+                )
+              })}
             </motion.ul>
           )}
         </AnimatePresence>
