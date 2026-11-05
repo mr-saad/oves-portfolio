@@ -135,16 +135,16 @@ export default function Home() {
     offset: ["start 100px", "end end"],
   })
 
-  // Word reveal: Progresses smoothly from 0 to 1 over the first 75% of pinned scroll travel
-  const wordProgress = useTransform(scrollYProgress, [0, 0.75], [0, 1])
+  // Word reveal: Progresses slowly and smoothly from 0 to 1 over the scroll track
+  const wordProgress = useTransform(scrollYProgress, [0, 0.85], [0, 1])
 
   // Resume button: Hidden by default (opacity 0, pointer-events none).
-  // Smoothly reveals once the scroll word reveal animation completes (75% to 88% scroll).
-  const buttonOpacity = useTransform(scrollYProgress, [0.75, 0.88], [0, 1])
-  const buttonY = useTransform(scrollYProgress, [0.75, 0.88], [16, 0])
-  const buttonScale = useTransform(scrollYProgress, [0.75, 0.88], [0.94, 1])
+  // Smoothly reveals once the scroll word reveal animation completes (85% to 96% scroll).
+  const buttonOpacity = useTransform(scrollYProgress, [0.85, 0.96], [0, 1])
+  const buttonY = useTransform(scrollYProgress, [0.85, 0.96], [16, 0])
+  const buttonScale = useTransform(scrollYProgress, [0.85, 0.96], [0.94, 1])
   const buttonPointerEvents = useTransform(scrollYProgress, (v) =>
-    v >= 0.78 ? "auto" : "none"
+    v >= 0.88 ? "auto" : "none"
   )
 
   // Delay typewriter initiation until splash screen completes (if present)
@@ -202,7 +202,7 @@ export default function Home() {
       className="mt-4 sm:mt-6 md:mt-10"
     >
       {/* Pinned Scroll Track: Screen stays pinned in this section while scroll drives the word reveal */}
-      <div ref={containerRef} className="relative min-h-[175vh]">
+      <div ref={containerRef} className="relative min-h-[275vh]">
         <div className="sticky top-6 sm:top-10 md:top-12">
           {/* Typewriter Heading with Animated Blinking Caret */}
           <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
