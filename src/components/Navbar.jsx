@@ -16,6 +16,7 @@ export default function Navbar() {
   const closeUl = () => {
     setShowUl(false)
     document.documentElement.style.overflow = "visible"
+    window.scrollTo({ top: 0, behavior: "instant" })
   }
 
   // Toggle mobile navigation drawer and lock/unlock document scroll
@@ -26,7 +27,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-white/5 bg-black/85 backdrop-blur-md">
+    <header className="sticky top-0 z-30 w-full border-b border-white/5 bg-black">
       <nav className="flex justify-between items-center py-7 px-6 sm:px-8 md:px-12 lg:px-16 w-full tracking-tight">
         {/* Brand Logo - Navigates Home & Scrolls to Top */}
         <h1 className="highlight text-3xl md:text-4xl z-3">
