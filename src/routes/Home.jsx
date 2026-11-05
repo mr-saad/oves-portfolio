@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import pageAnimation from "../lib/pageAnimation"
 
 /**
@@ -60,6 +60,7 @@ const tokens = [
 export default function Home() {
   const [hasStarted, setHasStarted] = useState(false)
   const [index, setIndex] = useState(0)
+  const [showCursor, setShowCursor] = useState(true)
 
   // Delay typewriter initiation until splash screen completes (if present)
   useEffect(() => {
@@ -96,6 +97,16 @@ export default function Home() {
     return () => clearTimeout(timeout)
   }, [hasStarted, index])
 
+  // Hide and stop the blinking cursor once typing completes
+  useEffect(() => {
+    if (index >= tokens.length) {
+      const hideTimer = setTimeout(() => {
+        setShowCursor(false)
+      }, 500)
+      return () => clearTimeout(hideTimer)
+    }
+  }, [index])
+
   return (
     <motion.div
       transition={{ duration: 0.5 }}
@@ -120,17 +131,24 @@ export default function Home() {
             </span>
           )
         })}
-        <motion.span
-          animate={{ opacity: [1, 0, 1] }}
-          transition={{
-            repeat: Infinity,
-            duration: 0.8,
-            ease: "easeInOut",
-          }}
-          className="inline-block text-[#A65F1B] font-light ml-0.5"
-        >
-          |
-        </motion.span>
+        <AnimatePresence>
+          {showCursor && (
+            <motion.span
+              key="cursor"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: [1, 0, 1] }}
+              exit={{ opacity: 0 }}
+              transition={{
+                repeat: Infinity,
+                duration: 0.8,
+                ease: "easeInOut",
+              }}
+              className="inline-block text-[#A65F1B] font-light ml-0.5"
+            >
+              |
+            </motion.span>
+          )}
+        </AnimatePresence>
       </h1>
 
       {/* Bio Summary */}
