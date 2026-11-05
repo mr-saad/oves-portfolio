@@ -220,18 +220,12 @@ export default function Home() {
               )
             })}
             {showCursor && (
-              <motion.span
+              <span
                 aria-hidden="true"
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 0.8,
-                  ease: "easeInOut",
-                }}
-                className="inline-block text-[#A65F1B] font-light ml-0.5"
+                className="inline-block text-[#A65F1B] font-light ml-0.5 typewriter-cursor"
               >
                 |
-              </motion.span>
+              </span>
             )}
           </h1>
 

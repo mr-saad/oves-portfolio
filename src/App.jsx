@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router"
 import { AnimatePresence, motion } from "framer-motion"
 
@@ -21,11 +21,15 @@ function App() {
   const [loading, setLoading] = useState(true)
   const location = useLocation()
   const navigate = useNavigate()
+  const hasMounted = useRef(false)
 
   useEffect(() => {
-    // Redirect to home page on initial load or browser refresh
-    if (window.location.pathname !== "/") {
-      navigate("/", { replace: true })
+    // Redirect to home page on initial cold load or browser refresh only
+    if (!hasMounted.current) {
+      hasMounted.current = true
+      if (window.location.pathname !== "/") {
+        navigate("/", { replace: true })
+      }
     }
 
     // Dismiss splash screen after 3.5 seconds

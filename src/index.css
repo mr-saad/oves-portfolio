@@ -76,6 +76,15 @@ body {
   @apply text-[#d5d5d5];
 }
 
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: cursorBlink 0.8s ease-in-out infinite;
+}
+
 /* ==========================================================================
    Form Input Styles
    ========================================================================== */

@@ -16,6 +16,7 @@ export default function Navbar() {
   const closeUl = () => {
     setShowUl(false)
     document.documentElement.style.overflow = "visible"
+    window.scrollTo({ top: 0, behavior: "instant" })
   }
 
   // Toggle mobile navigation drawer and lock/unlock document scroll
@@ -26,10 +27,10 @@ export default function Navbar() {
   }
 
   return (
-    <div className="w-full border-b border-white/5">
+    <div className="relative z-50 w-full border-b border-white/5 bg-black">
       <nav className="flex justify-between items-center py-7 px-6 sm:px-8 md:px-12 lg:px-16 w-full tracking-tight">
         {/* Brand Logo - Navigates Home & Scrolls to Top */}
-        <h1 className="highlight text-3xl md:text-4xl z-3">
+        <h1 className="highlight text-3xl md:text-4xl relative z-50">
           <Link
             to="/"
             onClick={() => {
@@ -46,7 +47,7 @@ export default function Navbar() {
           type="button"
           aria-label={showUl ? "Close Menu" : "Open Menu"}
           onClick={toggleMenu}
-          className="grid z-3 justify-items-end gap-2 cursor-pointer scale-70 md:scale-100"
+          className="grid relative z-50 justify-items-end gap-2 cursor-pointer scale-70 md:scale-100"
         >
           <span
             className={`bg-white duration-500 transition origin-top-right w-8 h-[3px] rounded-full ${
@@ -75,7 +76,7 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="z-2 grid content-center text-center text-3xl text-[#777] justify-center gap-5 fixed top-0 left-0 w-full h-full bg-black"
+              className="z-40 grid content-center text-center text-3xl text-[#777] justify-center gap-5 fixed inset-0 w-full h-full bg-black"
             >
               {links.map((link, index) => (
                 <motion.li
