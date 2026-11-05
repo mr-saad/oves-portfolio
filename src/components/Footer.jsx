@@ -62,7 +62,7 @@ export default function Footer() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="rounded-full bg-[#A65F1B] p-1 scale-120 outline-1 outline-[#A65F1B] transition hover:bg-transparent hover:stroke-[#A65F1B] group-focus:bg-transparent group-focus:stroke-[#A65F1B]"
+              className="rounded-full bg-[#A65F1B] p-1 scale-120 outline-1 outline-[#A65F1B] transition-all duration-700 hover:bg-transparent hover:stroke-[#A65F1B] group-focus:bg-transparent group-focus:stroke-[#A65F1B]"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />

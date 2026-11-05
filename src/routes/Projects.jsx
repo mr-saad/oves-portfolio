@@ -78,7 +78,7 @@ export default function Projects() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1"
+                    className="relative z-10 transition-transform duration-600 group-hover:translate-x-1 group-focus-visible:translate-x-1"
                   >
                     <path d="M5 12h14" />
                     <path d="m12 5 7 7-7 7" />
@@ -91,7 +91,7 @@ export default function Projects() {
       </div>
 
       {/* Pagination Bar with Animated Page Count */}
-      <div className="grid grid-cols-3 items-center w-full max-w-[260px] sm:max-w-[280px] mx-auto my-6 px-1">
+      <div className="grid grid-cols-3 items-center w-full max-w-[440px] sm:max-w-[480px] mx-auto my-7 px-4">
         {/* Previous Button */}
         <div className="flex justify-start">
           <motion.button

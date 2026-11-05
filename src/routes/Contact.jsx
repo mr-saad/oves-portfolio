@@ -87,7 +87,7 @@ export default function Contact() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="relative z-10 transition-transform duration-300 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
+            className="relative z-10 transition-transform duration-600 group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5"
           >
             <path d="M5 12h14" />
             <path d="m12 5 7 7-7 7" />
