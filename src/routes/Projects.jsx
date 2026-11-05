@@ -47,7 +47,7 @@ export default function Projects() {
                 <div className="overflow-hidden rounded-lg border border-white/10 shadow-2xl bg-zinc-900/40">
                   <img
                     src={`/images/${img}`}
-                    className="w-full aspect-square object-cover transition-transform duration-500 hover:scale-105"
+                    className="w-full aspect-square object-cover"
                     alt={title}
                   />
                 </div>
