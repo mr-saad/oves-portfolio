@@ -71,7 +71,7 @@ export default function Navbar() {
           {showUl && (
             <motion.ul
               key="mobile-nav"
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
               variants={pageAnimation}
               initial="initial"
               animate="animate"
@@ -82,10 +82,11 @@ export default function Navbar() {
                 <motion.li
                   key={link.route}
                   transition={{
-                    ease: "linear",
-                    delay: index * 0.15,
+                    duration: 0.75,
+                    ease: [0.25, 1, 0.5, 1],
+                    delay: 0.12 + index * 0.18,
                   }}
-                  initial={{ y: 10, opacity: 0 }}
+                  initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                 >
                   <Link
