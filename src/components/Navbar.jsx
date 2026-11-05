@@ -27,7 +27,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="relative z-50 w-full border-b border-white/5 bg-black">
+    <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-black">
       <nav className="flex justify-between items-center py-7 px-6 sm:px-8 md:px-12 lg:px-16 w-full tracking-tight">
         {/* Brand Logo - Navigates Home & Scrolls to Top */}
         <h1 className="highlight text-3xl md:text-4xl relative z-50">
@@ -103,6 +103,6 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </nav>
-    </div>
+    </header>
   )
 }

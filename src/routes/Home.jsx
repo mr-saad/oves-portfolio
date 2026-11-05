@@ -203,7 +203,7 @@ export default function Home() {
     >
       {/* Pinned Scroll Track: Screen stays pinned in this section while scroll drives the word reveal */}
       <div ref={containerRef} className="relative min-h-[275vh]">
-        <div className="sticky top-6 sm:top-10 md:top-12">
+        <div className="sticky top-[96px] sm:top-[104px] md:top-[116px]">
           {/* Typewriter Heading with Animated Blinking Caret */}
           <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
             {tokens.slice(0, index).map((token, i) => {
