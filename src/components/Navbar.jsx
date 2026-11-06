@@ -106,8 +106,8 @@ export default function Navbar() {
                       to={link.route}
                       className={`transition-colors duration-300 ${
                         isActive
-                          ? "font-bold text-[#59278E]"
-                          : "font-medium text-[#777] hover:text-[#59278E]"
+                          ? "font-bold text-[#F5B027]"
+                          : "font-medium text-[#777] hover:text-[#F5B027]"
                       }`}
                     >
                       {link.title}
