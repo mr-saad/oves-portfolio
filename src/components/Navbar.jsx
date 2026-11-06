@@ -86,7 +86,7 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="z-20 grid content-center text-center text-2xl sm:text-[1.65rem] tracking-wider justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
+              className="z-20 grid content-center text-center text-2xl sm:text-[1.65rem] tracking-normal justify-center gap-4 sm:gap-5 fixed inset-0 w-full h-full bg-black"
             >
               {links.map((link, index) => {
                 const isActive = pathname === link.route
