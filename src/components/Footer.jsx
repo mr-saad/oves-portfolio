@@ -62,7 +62,7 @@ export default function Footer() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="rounded-full bg-[#4C2E34] p-1 scale-120 outline-1 outline-[#4C2E34] transition-all duration-700 hover:bg-transparent hover:stroke-[#4C2E34] group-focus:bg-transparent group-focus:stroke-[#4C2E34]"
+              className="rounded-full bg-[#701705] p-1 scale-120 outline-1 outline-[#701705] transition-all duration-700 hover:bg-transparent hover:stroke-[#701705] group-focus:bg-transparent group-focus:stroke-[#701705]"
             >
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
@@ -79,8 +79,8 @@ export default function Footer() {
                 <Link
                   to={link.route}
                   onClick={() => smoothScrollToTop(900)}
-                  className={`transition hover:text-[#4C2E34]! highlight text-xl ${
-                    pathname === link.route ? "text-[#4C2E34]!" : ""
+                  className={`transition hover:text-[#701705]! highlight text-xl ${
+                    pathname === link.route ? "text-[#701705]!" : ""
                   }`}
                 >
                   {link.title}
