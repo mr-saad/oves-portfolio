@@ -66,7 +66,7 @@ export default function Projects() {
                 <a
                   href={url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="btn group !py-2.5 !px-4 !text-sm !gap-2.5"
                 >
                   <span className="relative z-10">Checkout!</span>

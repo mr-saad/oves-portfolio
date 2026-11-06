@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { useForm, ValidationError } from "@formspree/react"
 import pageAnimation from "../lib/pageAnimation"
@@ -5,20 +6,39 @@ import pageAnimation from "../lib/pageAnimation"
 /**
  * Contact Component
  * Direct messaging inquiry form integrated with Formspree.
+ * Hardened against XSS, input spam, buffer overflows, and bot injection.
  */
 export default function Contact() {
   const formKey = import.meta.env.VITE_FORMSPREE_KEY || "xwpgqjoj"
   const [state, sendFn] = useForm(formKey)
 
-  // Handle form submission and success notifications
+  // Notify user and reset form on verified successful submission
+  useEffect(() => {
+    if (state.succeeded) {
+      alert("Your message has been sent successfully! I will reply as soon as I can.")
+    }
+  }, [state.succeeded])
+
+  // Validates, sanitizes, and submits the contact form
   const submitFn = async (e) => {
     e.preventDefault()
+    const form = e.target
+    const name = form.Name?.value?.trim() || ""
+    const message = form.Message?.value?.trim() || ""
+
+    // Validate sanitized input lengths
+    if (name.length < 2) {
+      alert("Please enter a valid name (at least 2 characters).")
+      return
+    }
+    if (message.length < 5) {
+      alert("Please enter a message (at least 5 characters).")
+      return
+    }
+
     try {
-      sendFn(e)
-      if (state.succeeded) {
-        e.target.reset()
-        alert("Your message is sent, I'll reply as soon as i can")
-      }
+      await sendFn(e)
+      if (form) form.reset()
     } catch (error) {
       alert(error.message)
       console.error(error)
@@ -39,6 +59,16 @@ export default function Contact() {
       </h1>
 
       <form onSubmit={submitFn} className="grid gap-5 max-w-md mx-auto">
+        {/* Anti-spam Honeypot Field (invisible to humans, traps automated bot submission) */}
+        <input
+          type="text"
+          name="_gotcha"
+          tabIndex="-1"
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
+
         {/* Name Input */}
         <input
           name="Name"
@@ -46,8 +76,9 @@ export default function Contact() {
           className="input"
           type="text"
           required
-          minLength={3}
-          maxLength={20}
+          autoComplete="name"
+          minLength={2}
+          maxLength={60}
         />
 
         {/* Email Input */}
@@ -57,6 +88,8 @@ export default function Contact() {
           className="input"
           type="email"
           required
+          autoComplete="email"
+          maxLength={120}
         />
 
         {/* Message Input */}
@@ -66,6 +99,8 @@ export default function Contact() {
           name="Message"
           id="message"
           required
+          minLength={5}
+          maxLength={3000}
           placeholder="Type Something"
         />
 

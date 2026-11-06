@@ -95,7 +95,7 @@ export default function Footer() {
               <a
                 className="transition hover:text-[#d5d5d5]"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 href="https://www.linkedin.com/in/oves-arora-4a95a52a6"
               >
                 <Linkedin strokeWidth={1} className="inline-block mr-1" /> Linkedin
@@ -105,7 +105,7 @@ export default function Footer() {
               <a
                 className="transition hover:text-[#d5d5d5]"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 href="https://github.com/oves-arora"
               >
                 <Github strokeWidth={1} className="inline-block mr-1" /> Github
@@ -115,7 +115,7 @@ export default function Footer() {
               <a
                 className="transition hover:text-[#d5d5d5]"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 href="https://instagram.com/youngoves"
               >
                 <Instagram strokeWidth={1} className="inline-block mr-1" /> Instagram
