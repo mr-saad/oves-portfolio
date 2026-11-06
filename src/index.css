@@ -68,13 +68,13 @@
 }
 
 ::selection {
-  background-color: #701705;
-  color: #ffffff;
+  background-color: #9ED945;
+  color: #000000;
 }
 
 ::-moz-selection {
-  background-color: #701705;
-  color: #ffffff;
+  background-color: #9ED945;
+  color: #000000;
 }
 
 body {
@@ -142,9 +142,9 @@ body {
   font-size: 15px;
   cursor: pointer;
   border-radius: 9999px;
-  background-color: #701705;
+  background-color: #9ED945;
   color: #000;
-  outline: 2px solid #701705;
+  outline: 2px solid #9ED945;
   transition: color 0.6s ease, outline-color 0.6s ease;
 }
 
@@ -175,8 +175,8 @@ body {
 .fill-text-anim {
   background: linear-gradient(
     to right,
-    #701705 0%,
-    #701705 50%,
+    #9ED945 0%,
+    #9ED945 50%,
     #ffffff 50.2%,
     #ffffff 100%
   );
