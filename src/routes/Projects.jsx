@@ -48,7 +48,9 @@ export default function Projects() {
                   <img
                     src={`/images/${img}`}
                     className="w-full aspect-square object-cover"
-                    alt={title}
+                    alt={`Oves Arora Portfolio - ${title} Project`}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
 

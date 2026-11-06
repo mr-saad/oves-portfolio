@@ -339,7 +339,10 @@ export default function Home() {
       className="mt-8 sm:mt-10 md:mt-0"
     >
       {/* Typewriter Heading with Animated Blinking Caret */}
-      <h1 className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]">
+      <h1
+        aria-label="Hey! I'm Ovesarora Exploring & Learning"
+        className="text-[1.75rem] sm:text-3xl md:text-4xl font-normal leading-tight tracking-tight min-h-[3.8em]"
+      >
         {tokens.slice(0, index).map((token, i) => {
           if (token.isLineBreak) {
             return <br key={i} />

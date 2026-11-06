@@ -47,6 +47,19 @@ function App() {
     }
   }, [navigate])
 
+  // Update document title dynamically based on active route for enhanced SEO & user clarity
+  useEffect(() => {
+    const titles = {
+      "/": "Oves Arora | UI/UX Designer & Frontend Developer Portfolio",
+      "/projects": "Projects | Oves Arora - UI/UX Designer & Developer",
+      "/skills": "Skills | Oves Arora - UI/UX Design & Development",
+      "/contact": "Contact | Oves Arora - UI/UX Designer & Developer",
+    }
+    document.title =
+      titles[location.pathname] ||
+      "Oves Arora | UI/UX Designer & Frontend Developer Portfolio"
+  }, [location.pathname])
+
   return (
     <>
       {/* Initial Animated Splash Screen */}

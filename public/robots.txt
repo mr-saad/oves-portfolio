@@ -1,0 +1,7 @@
+# Robots.txt for Oves Arora Portfolio
+# Allow all search engine crawlers to index the full site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ovesarora.com/sitemap.xml
