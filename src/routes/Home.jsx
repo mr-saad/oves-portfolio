@@ -359,7 +359,7 @@ export default function Home() {
         {showCursor && (
           <span
             aria-hidden="true"
-            className="inline-block text-[#A65F1B] font-light ml-0.5 typewriter-cursor"
+            className="inline-block text-[#4C2E34] font-light ml-0.5 typewriter-cursor"
           >
             |
           </span>
